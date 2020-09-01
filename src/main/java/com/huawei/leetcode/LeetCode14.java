@@ -50,7 +50,11 @@ public class LeetCode14 {
             for (int i = 0; i < n; i++) {
                 strs[i] = scanner.nextLine();
             }
-            System.out.println(longestCommonPrefix(strs));
+            Arrays.sort(strs);
+            for (int i = 0; i < n; i++) {
+                System.out.println(strs[i]);
+            }
+            //System.out.println(longestCommonPrefix(strs));
         }
     }
 }
