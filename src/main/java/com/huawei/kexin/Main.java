@@ -8,7 +8,11 @@ public class Main {
         while (left < nums.length) {
             sum += nums[right];
             if (sum <= target) {
-                length = right - left + 1;
+                if (right >= left) {
+                    length = right - left + 1;
+                } else {
+                    length = nums.length - left + right - 0 + 1;
+                }
                 if (length > max) {
                     max = length;
                     start = left;
@@ -18,10 +22,21 @@ public class Main {
                 while (sum > target) {
                     sum -= nums[left];
                     left ++;
+                    if (left == nums.length) {
+                        break;
+                    }
                 }
 
             }
             right ++;
+            if (right == nums.length) {
+                right = 0;
+            }
+        }
+        if (max == Integer.MIN_VALUE) {
+            System.out.println(-1 + " " + -1);
+        } else {
+            System.out.println(start + " " + end);
         }
     }
     public static void main(String[] args) {
