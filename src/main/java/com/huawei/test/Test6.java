@@ -36,8 +36,8 @@ public class Test6 {
             for (int i = 0; i < n; i++) {
                 builder.append(i + 1);
             }
-            DFS("", builder.toString());
-            System.out.println(count);
+            //DFS("", builder.toString());
+            System.out.println(builder.delete(0, builder.length() - 1));
             /*
             //System.out.println(builder.toString().substring(0, 1));
             String str = builder.toString();
