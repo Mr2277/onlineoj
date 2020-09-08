@@ -1,13 +1,13 @@
 package com.huawei.leetcode;
 
 import java.util.Scanner;
-
+/*
 class ListNode {
       int val;
       ListNode next;
       ListNode(int x) { val = x; }
 }
-
+*/
 public class LeetCode19 {
 
     public static ListNode removeNthFromEnd(ListNode head, int n) {
