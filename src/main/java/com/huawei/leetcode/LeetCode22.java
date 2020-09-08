@@ -77,7 +77,7 @@ public class LeetCode22 {
         return result;
     }
     */
-
+     /*
     public static List<String> generateParenthesis(int n) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < 2 * n; i++) {
@@ -147,6 +147,71 @@ public class LeetCode22 {
         }
         return result;
     }
+     */
+    public  static List<String> generateParenthesis(int n) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 2 * n; i++) {
+            if (i < n) {
+                builder.append("(");
+            } else {
+                builder.append(")");
+            }
+        }
+        Stack<String> stack = new Stack<>();
+        List<String> result = new ArrayList<>();
+        List<String> symbols = DFS(builder.toString(), stack, result, "");
+        List<String> finalResult = symbols.stream().distinct().collect(Collectors.toList());
+
+        return finalResult;
+    }
+
+    public  static List<String> DFS(String str, Stack<String> stack, List<String> result, String tempStr) {
+        if (str.length() == 0) {
+            result.add(tempStr);
+            return result;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            String curString = String.valueOf(str.charAt(i));
+            String subStr = "";
+            if (tempStr.length() == 0 && curString.equals(")")) {
+                break;
+            }
+            if (curString.equals("(")) {
+                tempStr += curString;
+                stack.push(curString);
+                if (i == 0) {
+                    subStr = str.substring(1);
+                } else if (i == str.length()) {
+                    subStr = str.substring(0, str.length() - 1);
+                } else {
+                    subStr = str.substring(0, i) + str.substring(i + 1);
+                }
+                result = DFS(subStr, stack, result, tempStr);
+                tempStr = tempStr.substring(0, tempStr.length() - 1);
+                stack.pop();
+            }
+            if (!stack.isEmpty() && curString.equals(")")) {
+                String stackTop = stack.peek();
+                if (stackTop.equals("(")) {
+                    stack.pop();
+                    if (i == 0) {
+                        subStr = str.substring(1);
+                    } else if (i == str.length()) {
+                        subStr = str.substring(0, str.length() - 1);
+                    } else {
+                        subStr = str.substring(0, i) + str.substring(i + 1);
+                    }
+                    tempStr += curString;
+                    result = DFS(subStr, stack, result, tempStr);
+                    stack.add(stackTop);
+                    tempStr = tempStr.substring(0, tempStr.length() - 1);
+                }
+            }
+        }
+        return result;
+    }
+
+
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
