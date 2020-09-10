@@ -8,36 +8,27 @@ class ListNode {
     ListNode(int x) { val = x; }
 }
 public class LeetCode24 {
+    public ListNode swapPairs(ListNode head) {
 
-    public static ListNode swapPairs(ListNode head) {
-        return null;
-    }
-
-    public static ListNode DFS(ListNode left, ListNode right, int length) {
-        if (length <= 2) {
-            if (length == 2) {
-                right.next = left;
-                left.next = null;
-                return left;
-            }
-            else {
-                return left;
-            }
-        } else {
-            int n = (length + 1) / 2;
-            int count = 0;
-            while (count < n - 1) {
-                count ++;
-                right = right.next;
-            }
-            ListNode tempLeft = DFS(left, right, n);
-            while (right.next != null) {
-                left = left.next;
-                right = right.next;
-            }
-            ListNode tempRight =  v
+        if(head == null || head.next == null){
+            return head;
         }
+
+        ListNode next = head.next;
+
+        // next 后面就不管了，直接递归。。。。
+        next.next = swapPairs(next.next);
+
+        //下面两行代码是交换链表两个节点
+        head.next = next.next;
+        next.next = head;
+
+        // 交换后，next 就是前面的节点
+        return next;
     }
+
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
@@ -51,7 +42,8 @@ public class LeetCode24 {
                 temp.next = node;
                 temp = node;
             }
-            swapPairs(head);
+            // swapPairs(head);
         }
     }
+
 }
