@@ -1,12 +1,8 @@
-package com.huawei.leetcode;
+package com.huawei.leetcode.leetcode21_30;
 
 import java.util.Scanner;
 
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; }
-}
+
 public class LeetCode24 {
     public ListNode swapPairs(ListNode head) {
 

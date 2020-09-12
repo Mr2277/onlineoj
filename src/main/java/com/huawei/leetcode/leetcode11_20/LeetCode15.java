@@ -1,4 +1,4 @@
-package com.huawei.leetcode;
+package com.huawei.leetcode.leetcode11_20;
 
 import java.util.ArrayList;
 import java.util.List;

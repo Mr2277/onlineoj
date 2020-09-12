@@ -1,4 +1,4 @@
-package com.huawei.leetcode;
+package com.huawei.leetcode.leetcode21_30;
 
 import java.util.*;
 import java.util.stream.Collectors;

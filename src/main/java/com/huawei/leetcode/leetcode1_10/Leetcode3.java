@@ -1,4 +1,4 @@
-package com.huawei.leetcode;
+package com.huawei.leetcode.leetcode1_10;
 
 import java.util.*;
 
