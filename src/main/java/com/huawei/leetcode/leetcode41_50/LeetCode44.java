@@ -25,7 +25,7 @@ public class LeetCode44 {
         }
     }
     */
-
+      /*
     public static int jump(int[] nums) {
         int end = 0;
         int maxPosition = 0;
@@ -41,6 +41,41 @@ public class LeetCode44 {
         return steps;
 
     }
+     */
+
+
+    public static int jump(int[] nums) {
+        int index = 0, steps = 0, cur, maxIndx, stepIndex;
+        if (nums.length == 1) {
+            return 0;
+        }
+        while (index < nums.length) {
+            cur = nums[index];
+            maxIndx = Integer.MIN_VALUE;
+            steps ++;
+            if (index == nums.length - 1) {
+                break;
+            }
+            for (int i = index + 1; i <= index + cur; i++) {
+                stepIndex = i + nums[i];
+                if (stepIndex > maxIndx) {
+                    maxIndx = stepIndex;
+                }
+                if (stepIndex >= nums.length -1) {
+                    index = nums.length - 1;
+                    break;
+                }
+            }
+            if (maxIndx > nums.length - 1) {
+                index = nums.length - 1;
+            } else {
+                index = maxIndx;
+            }
+        }
+        return steps;
+
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
