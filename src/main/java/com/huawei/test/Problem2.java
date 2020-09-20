@@ -31,7 +31,6 @@ public class Problem2 {
                     Map.Entry entry = (Map.Entry) iterator.next();
                     key = (String) entry.getKey();
                     value = (String) entry.getValue();
-                    System.out.println(key + "#" +value);
                     String[] values = value.split("\\.");
                     endNum = Integer.valueOf(values[3]);
                     if (endNum < min) {
@@ -52,6 +51,8 @@ public class Problem2 {
                 useMap.put(mac, ip);
             } else {
                 ip = releaseMap.get(mac);
+                releaseMap.remove(mac);
+                useMap.put(mac, ip);
             }
         } else {
             ip = useMap.get(mac);
