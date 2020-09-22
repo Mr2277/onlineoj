@@ -45,24 +45,30 @@ public class LeetCode44 {
 
 
     public static int jump(int[] nums) {
-        int index = 0, steps = 0, cur, maxIndx, stepIndex;
+        int index = 0, steps = 0, cur, maxIndx, stepIndex, maxStep;
         if (nums.length == 1) {
             return 0;
         }
-        while (index < nums.length) {
+        boolean flag = false;
+        while (!flag) {
             cur = nums[index];
-            maxIndx = Integer.MIN_VALUE;
             steps ++;
+            if (index + cur >= nums.length - 1) {
+                break;
+            }
+            maxStep = Integer.MIN_VALUE;
+            maxIndx = index;
             if (index == nums.length - 1) {
                 break;
             }
             for (int i = index + 1; i <= index + cur; i++) {
                 stepIndex = i + nums[i];
-                if (stepIndex > maxIndx) {
-                    maxIndx = stepIndex;
+                if (stepIndex > maxStep) {
+                    maxStep = stepIndex;
+                    maxIndx = i;
                 }
                 if (stepIndex >= nums.length -1) {
-                    index = nums.length - 1;
+                    flag = true;
                     break;
                 }
             }
