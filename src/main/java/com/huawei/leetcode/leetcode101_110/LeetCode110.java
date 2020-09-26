@@ -78,19 +78,19 @@ public class LeetCode110 {
         if (root == null) {
             return false;
         }
-        treeDeep(root, 1);
-        //System.out.println(leftDeepth + " " + rirhtDeepth);
+        String str = treeDeep(root, 1);
+        System.out.println(str);
         //return Math.abs(leftDeepth - rirhtDeepth) <= 1 ? true : false;
         return false;
     }
 
-    public static int treeDeep(TreeNode root, int deep) {
+    public static String treeDeep(TreeNode root, int deep) {
         if (root == null) {
-            return deep;
+            return String.valueOf(deep);
         } else {
-           int leftdeep = treeDeep(root.left, deep + 1);
-           int rightdeep = treeDeep(root.right, deep + 1);
-           return leftdeep > rightdeep ? leftdeep : rightdeep;
+           String leftdeep = treeDeep(root.left, deep + 1);
+           String rightdeep = treeDeep(root.right, deep + 1);
+           return leftdeep + "_" + rightdeep;
         }
     }
     public static void main(String[] args) {
