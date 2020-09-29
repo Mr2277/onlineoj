@@ -1,9 +1,6 @@
 package com.huawei.test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class TestCreateTree {
     static class TreeNode {
@@ -89,13 +86,88 @@ public class TestCreateTree {
         return treeStack.peek();
     }
     */
-
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    /*
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root != null) {
+            queue.add(root);
+        }
+        boolean isLeftToRight = false;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> subResult = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                if (!isLeftToRight) {
+                    TreeNode node = queue.poll();
+                    if (node.right != null) {
+                        queue.add(node.right);
+                        subResult.add(node.right.val);
+                    }
+                    if (node.left != null) {
+                        queue.add(node.left);
+                        subResult.add(node.left.val);
+                    }
+                }
+                if (isLeftToRight) {
+                    TreeNode node = queue.poll();
+
+                    if (node.left != null) {
+                        queue.add(node.left);
+                        subResult.add(node.left.val);
+                    }
+                    if (node.right != null) {
+                        queue.add(node.right);
+                        subResult.add(node.right.val);
+                    }
+                }
+            }
+            isLeftToRight = isLeftToRight == false ? true : false;
+        }
         return result;
     }
+    */
 
-    public static TreeNode createTree(String str) {
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        Stack<TreeNode> treeNodeStack = new Stack<>();
+        boolean isLeftToRight = false;
+        if (root != null) {
+            List<Integer> subResult = new ArrayList<>();
+            subResult.add(root.val);
+            result.add(subResult);
+            treeNodeStack.add(root);
+        }
+        while (!treeNodeStack.isEmpty()) {
+            int size = treeNodeStack.size();
+            List<Integer> subResult = new ArrayList<>();
+            TreeNode node = treeNodeStack.pop();
+            for (int i = 0; i < size; i++) {
+                if (!isLeftToRight) {
+                    if (node.right != null) {
+                        subResult.add(node.right.val);
+                        treeNodeStack.add(node.right);
+                    }
+                    if (node.left != null) {
+                        subResult.add(node.left.val);
+                        treeNodeStack.add(node.left);
+                    }
+                }
+                if (isLeftToRight) {
+                    if (node.left != null) {
+                        subResult.add(node.left.val);
+                        treeNodeStack.add(node.left);
+                    }
+                    if (node.right != null) {
+                        subResult.add(node.right.val);
+                        treeNodeStack.add(node);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+        public static TreeNode createTree(String str) {
         int index = 0, startIndex = 0;
         String curStr = "", preStr = "", nextStr = "";
         Stack<TreeNode> treeNodeStack = new Stack<>();
@@ -158,6 +230,7 @@ public class TestCreateTree {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = createTree(str);
+            zigzagLevelOrder(root);
             /*
             List<String> preResult = new ArrayList<>();
             preResult = pre(root, preResult);
