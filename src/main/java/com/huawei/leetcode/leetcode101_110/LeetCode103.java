@@ -3,6 +3,7 @@ package com.huawei.leetcode.leetcode101_110;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class LeetCode103 {
 
@@ -46,16 +47,69 @@ public class LeetCode103 {
         return null;
     }
 
+    public static void create(String str) {
+        int index = 0;
+        char ch = str.charAt(index);
+        String cur = "", pre = "", next = "";
+        Stack<TreeNode> treeNodeStack = new Stack<>();
+        TreeNode parent = null, node = null;
+        while (index < str.length()) {
+            while (ch >= '0' && ch <= '9') {
+                cur += ch;
+                index++;
+                ch = str.charAt(index);
+            }
+            next = String.valueOf(ch);
+            if (!"".equals(cur)) {
+                Integer curVal = Integer.valueOf(cur);
+                node = new TreeNode(curVal);
+                node.left = null;
+                node.right = null;
+            }
+            switch (pre) {
+
+                case "(":
+                    parent = treeNodeStack.peek();
+                    parent.left = node;
+                    if (next.equals("(")) {
+                        treeNodeStack.add(node);
+                    }
+                    break;
+                case ",":
+                    parent = treeNodeStack.peek();
+                    parent.right = node;
+                    if (next.equals("(")) {
+                        treeNodeStack.add(node);
+                    }
+                    break;
+                case ")":
+                    treeNodeStack.pop();
+                    break;
+                default:
+                    if(next.equals("(")) {
+                        treeNodeStack.add(node);
+                    }
+                    break;
+            }
+            pre = "".equals(cur) ? String.valueOf(str.charAt(index)) : next;
+            cur = "";
+            index++;
+            ch = index < str.length() ? str.charAt(index) : ')';
+        }
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
+            /*
             int n = scanner.nextInt();
             int[] nums = new int[n];
             for (int i = 0; i < n; i++) {
                 nums[i] = scanner.nextInt();
             }
-
+            */
+            String str = scanner.nextLine();
+            create(str);
         }
     }
 }
