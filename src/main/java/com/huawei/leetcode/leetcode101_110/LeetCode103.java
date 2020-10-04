@@ -54,13 +54,13 @@ public class LeetCode103 {
         Stack<TreeNode> treeNodeStack = new Stack<>();
         TreeNode parent = null, node = null;
         while (index < str.length()) {
-            while (ch >= '0' && ch <= '9') {
+            while (ch >= '0' && ch <= '9' || ch == '#') {
                 cur += ch;
                 index++;
                 ch = str.charAt(index);
             }
             next = String.valueOf(ch);
-            if (!"".equals(cur)) {
+            if (!"".equals(cur) && !cur.equals("#")) {
                 Integer curVal = Integer.valueOf(cur);
                 node = new TreeNode(curVal);
                 node.left = null;
@@ -70,14 +70,18 @@ public class LeetCode103 {
 
                     case "(":
                         parent = treeNodeStack.peek();
-                        parent.left = node;
+                        if (!cur.equals("#")) {
+                            parent.left = node;
+                        }
                         if (next.equals("(")) {
                             treeNodeStack.add(node);
                         }
                         break;
                     case ",":
                         parent = treeNodeStack.peek();
-                        parent.right = node;
+                        if (!cur.equals("#")) {
+                            parent.right = node;
+                        }
                         if (next.equals("(")) {
                             treeNodeStack.add(node);
                         }
@@ -96,12 +100,6 @@ public class LeetCode103 {
             cur = "";
             index++;
             ch = index < str.length() ? str.charAt(index) : ')';
-            if (ch == '#') {
-                index++;
-                pre = String.valueOf(str.charAt(index));
-                index++;
-            }
-
         }
         return treeNodeStack.peek();
     }
@@ -120,30 +118,38 @@ public class LeetCode103 {
             while (!treeNodeStack.isEmpty()) {
                 int size = treeNodeStack.size();
                 subResult = new ArrayList<>();
+                List<TreeNode> nodes = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
                     TreeNode node = treeNodeStack.pop();
                     if (isFromLefttoRight) {
                         if (node.left != null) {
                             subResult.add(node.left.val);
-                            treeNodeStack.add(node.left);
+                            // treeNodeStack.add(node.left);
+                            nodes.add(node.left);
                         }
                         if (node.right != null) {
                             subResult.add(node.right.val);
-                            treeNodeStack.add(node.right);
+                            // treeNodeStack.add(node.right);
+                            nodes.add(node.right);
                         }
                     } else {
                         if (node.right != null) {
                             subResult.add(node.right.val);
-                            treeNodeStack.add(node.right);
+                            // treeNodeStack.add(node.right);
+                            nodes.add(node.right);
                         }
                         if (node.left != null) {
                             subResult.add(node.left.val);
-                            treeNodeStack.add(node.left);
+                            // treeNodeStack.add(node.left);
+                            nodes.add(node.left);
                         }
                     }
                 }
                 if (!subResult.isEmpty()) {
                     result.add(subResult);
+                }
+                for (TreeNode node : nodes) {
+                    treeNodeStack.add(node);
                 }
                 isFromLefttoRight = isFromLefttoRight == false ? true : false;
             }
@@ -161,6 +167,7 @@ public class LeetCode103 {
                 nums[i] = scanner.nextInt();
             }
             */
+            // 1(2(4,#),3(#,5))
             String str = scanner.nextLine();
             TreeNode root = create(str);
             List<List<Integer>> lists = zigzagLevelOrder(root);
