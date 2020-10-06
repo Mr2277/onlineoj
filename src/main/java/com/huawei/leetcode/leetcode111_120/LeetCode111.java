@@ -70,26 +70,30 @@ public class LeetCode111 {
         }
         return treeNodeStack.peek();
     }
-    /*
+
     public static int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
-        } else if (root.left == null || root.right != null) {
+        } else if ((root.left == null && root != null && root.right != null)
+                || (root.right == null && root != null && root.left != null)) {
+            return 2;
+        } else if (root != null && root.right == null && root.left == null) {
             return 1;
         } else {
-            int result = DFS(root, 1);
-            // System.out.println(result);
-            return result;
+            int left = DFS(root.left, 2);
+            int right = DFS(root.right, 2);
+
+            return Integer.min(left, right);
         }
     }
-    */
+
     public static int DFS(TreeNode node, int depth) {
         if (node == null) {
             return depth - 1;
         } else {
             int depthLeft = DFS(node.left, depth + 1);
             int depthRight = DFS(node.right, depth + 1);
-            return Integer.min(depthLeft, depthRight);
+            return Integer.max(depthLeft, depthRight);
         }
     }
     /*
@@ -110,7 +114,7 @@ public class LeetCode111 {
         return ans + 1;
     }
     */
-
+    /*
     public static int minDepth(TreeNode root) {
         if (root == null)
             return 0;
@@ -123,13 +127,24 @@ public class LeetCode111 {
         //如果left和right都不为0，说明他有两个子节点，我们只需要返回最小深度的+1即可。
         return (left == 0 || right == 0) ? left + right + 1 : Math.min(left, right) + 1;
     }
-
+    */
+    /*
+    public static int minDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = minDepth(root.left);
+        int right = minDepth(root.right);
+        return (left == 0 || right == 0) ? (left + right) + 1;
+        return left + 1;
+    }
+    */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            minDepth(root);
+            System.out.println(minDepth(root));
         }
     }
 }
