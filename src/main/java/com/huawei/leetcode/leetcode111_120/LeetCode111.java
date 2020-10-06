@@ -70,7 +70,7 @@ public class LeetCode111 {
         }
         return treeNodeStack.peek();
     }
-
+    /*
     public static int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
@@ -86,7 +86,8 @@ public class LeetCode111 {
             return Integer.min(left, right);
         }
     }
-
+    */
+    /*
     public static int DFS(TreeNode node, int depth) {
         if (node == null) {
             return depth - 1;
@@ -96,6 +97,7 @@ public class LeetCode111 {
             return Integer.max(depthLeft, depthRight);
         }
     }
+    */
     /*
     public static int minDepth(TreeNode root) {
         if(root == null) {
@@ -114,7 +116,7 @@ public class LeetCode111 {
         return ans + 1;
     }
     */
-    /*
+
     public static int minDepth(TreeNode root) {
         if (root == null)
             return 0;
@@ -127,7 +129,7 @@ public class LeetCode111 {
         //如果left和right都不为0，说明他有两个子节点，我们只需要返回最小深度的+1即可。
         return (left == 0 || right == 0) ? left + right + 1 : Math.min(left, right) + 1;
     }
-    */
+
     /*
     public static int minDepth(TreeNode root) {
         if (root == null) {
@@ -139,12 +141,47 @@ public class LeetCode111 {
         return left + 1;
     }
     */
+    /*
+    public static int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null && root.right == null) {
+            return 1;
+        } else {
+            int depth = Integer.MIN_VALUE;
+            if (root.left != null) {
+                depth = Integer.max(maxDepth(root.left), depth);
+            }
+            if (root.right != null) {
+                depth = Integer.max(maxDepth(root.right), depth);
+            }
+            return depth + 1;
+        }
+    }
+    */
+    /*
+    public static int maxDepth(TreeNode node) {
+        return DFS(node, 1);
+    }
+
+    public static int DFS(TreeNode node, int level) {
+        if (node == null) {
+            return level - 1;
+        } else {
+            int left = DFS(node.left, level + 1);
+            int right = DFS(node.right, level + 1);
+            return Integer.max(left, right);
+        }
+    }
+    */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            System.out.println(minDepth(root));
+            //System.out.println(minDepth(root));
+            minDepth(root);
         }
     }
 }
