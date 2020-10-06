@@ -92,7 +92,7 @@ public class LeetCode111 {
             return Integer.min(depthLeft, depthRight);
         }
     }
-
+    /*
     public static int minDepth(TreeNode root) {
         if(root == null) {
             return 0;
@@ -109,8 +109,20 @@ public class LeetCode111 {
         }
         return ans + 1;
     }
+    */
 
-
+    public static int minDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        //左子树的最小深度
+        int left = minDepth(root.left);
+        //右子树的最小深度
+        int right = minDepth(root.right);
+        //如果left和right都为0，我们返回1即可，
+        //如果left和right只有一个为0，说明他只有一个子结点，我们只需要返回它另一个子节点的最小深度+1即可。
+        //如果left和right都不为0，说明他有两个子节点，我们只需要返回最小深度的+1即可。
+        return (left == 0 || right == 0) ? left + right + 1 : Math.min(left, right) + 1;
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
