@@ -1,9 +1,6 @@
 package com.huawei.leetcode.leetcode101_110;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class LeetCode112 {
 
@@ -72,7 +69,7 @@ public class LeetCode112 {
         }
         return treeNodeStack.peek();
     }
-
+    /*
     public static boolean hasPathSum(TreeNode root, int sum) {
         Set<Integer> result = new HashSet<>();
         result = DFS(root, 0, result);
@@ -98,6 +95,18 @@ public class LeetCode112 {
             return result;
         }
     }
+    */
+
+    public static boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return root.val == sum;
+        }
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
