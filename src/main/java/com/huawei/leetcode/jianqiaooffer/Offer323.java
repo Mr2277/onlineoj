@@ -84,25 +84,33 @@ public class Offer323 {
             while (!treeNodeStack.isEmpty()) {
                 int size = treeNodeStack.size();
                 List<Integer> subResult = new ArrayList<>();
+                List<TreeNode> treeNodes = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
                     TreeNode node = treeNodeStack.pop();
                     subResult.add(node.val);
                     if (isFromLeftToRight) {
                         if (node.left != null) {
-                            treeNodeStack.add(node.left);
+                            //treeNodeStack.add(node.left);
+                            treeNodes.add(node.left);
                         }
                         if (node.right != null) {
-                            treeNodeStack.add(node.right);
+                            //treeNodeStack.add(node.right);
+                            treeNodes.add(node.right);
                         }
                     }
                     else {
                         if (node.right != null) {
-                            treeNodeStack.add(node.right);
+                            //treeNodeStack.add(node.right);
+                            treeNodes.add(node.right);
                         }
                         if (node.left != null) {
-                            treeNodeStack.add(node.left);
+                            //treeNodeStack.add(node.left);
+                            treeNodes.add(node.left);
                         }
                     }
+                }
+                for (TreeNode node : treeNodes) {
+                    treeNodeStack.add(node);
                 }
                 result.add(subResult);
                 isFromLeftToRight = isFromLeftToRight == true ? false : true;
