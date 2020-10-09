@@ -116,6 +116,7 @@ public class Offer323 {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
+            levelOrder(root);
         }
     }
 }
