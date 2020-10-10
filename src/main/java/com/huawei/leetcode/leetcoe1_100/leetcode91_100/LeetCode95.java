@@ -41,61 +41,37 @@ public class LeetCode95 {
 
     public  static TreeNode createTree(List<Integer> nodes) {
         TreeNode root = null;
-        Stack<TreeNode> treeNodeStack = new Stack<>();
         for (Integer integer : nodes) {
             if (root == null) {
                 root = new TreeNode(integer);
                 root.left = null;
                 root.right = null;
-                treeNodeStack.add(root);
             } else {
-                TreeNode node = treeNodeStack.peek();
-                if (integer > node.val) {
-                    if (node.right == null) {
-                        TreeNode rightNode = new TreeNode(integer);
-                        rightNode.right = null;
-                        rightNode.left = null;
-                        node.right = rightNode;
-                    }
-                    else {
-                        treeNodeStack.add(node.right);
-                        node = treeNodeStack.peek();
-                        if (integer > node.val) {
+                TreeNode node = root;
+                while (true) {
+                    if (integer > node.val) {
+                        if (node.right == null) {
                             TreeNode rightNode = new TreeNode(integer);
                             rightNode.right = null;
                             rightNode.left = null;
                             node.right = rightNode;
+                            break;
                         } else {
-                            TreeNode leftNode = new TreeNode(integer);
-                            leftNode.right = null;
-                            leftNode.left = null;
-                            node.left = leftNode;
+                            node = node.right;
                         }
-                    }
-                } else {
-                    if (node.left == null) {
-                        TreeNode leftNode = new TreeNode(integer);
-                        leftNode.left = null;
-                        leftNode.right = null;
-                        node.left = leftNode;
                     } else {
-                        treeNodeStack.add(node.left);
-                        node = treeNodeStack.peek();
-                        if (integer > node.val) {
-                            TreeNode rightNode = new TreeNode(integer);
-                            rightNode.left = null;
-                            rightNode.right = null;
-                            node.right = rightNode;
-                        } else {
+                        if (node.left == null) {
                             TreeNode leftNode = new TreeNode(integer);
                             leftNode.left = null;
                             leftNode.right = null;
                             node.left = leftNode;
+                            break;
+                        } else {
+                            node = node.left;
                         }
                     }
                 }
             }
-
         }
         return root;
     }
@@ -135,6 +111,14 @@ public class LeetCode95 {
        while (scanner.hasNext()) {
            int n = scanner.nextInt();
            generateTrees(n);
+           /*
+           List<Integer> list = new ArrayList<>();
+           list.add(2);
+           list.add(3);
+           list.add(1);
+           list.add(4);
+           createTree(list);
+           */
        }
     }
 
