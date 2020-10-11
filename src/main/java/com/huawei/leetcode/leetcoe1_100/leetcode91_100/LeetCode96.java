@@ -2,25 +2,25 @@ package com.huawei.leetcode.leetcoe1_100.leetcode91_100;
 
 import java.util.*;
 
-public class LeetCode95 {
+public class LeetCode96 {
 
-   static class TreeNode {
-       int val;
-       TreeNode left;
-       TreeNode right;
-       TreeNode() {}
-       TreeNode(int val) { this.val = val; }
-       TreeNode(int val, TreeNode left, TreeNode right) {
-           this.val = val;
-           this.left = left;
-           this.right = right;
-       }
-  }
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
 
-  public static List<TreeNode> generateTrees(int n) {
+    public static int numTrees(int n) {
         List<TreeNode> nodes = new ArrayList<>();
         if (n == 0) {
-            return nodes;
+            return nodes.size();
         }
         boolean[] flag = new boolean[n];
         List<Integer> subResult = new ArrayList<>();
@@ -36,7 +36,7 @@ public class LeetCode95 {
                 preStrSet.add(preOrderStr);
             }
         }
-        return nodes;
+        return nodes.size();
     }
 
     public  static TreeNode createTree(List<Integer> nodes) {
@@ -95,7 +95,6 @@ public class LeetCode95 {
         }
     }
 
-
     public static String preString(TreeNode root, StringBuilder stringBuilder) {
         if (root == null) {
             return stringBuilder.toString();
@@ -108,19 +107,10 @@ public class LeetCode95 {
     }
 
     public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
-       while (scanner.hasNext()) {
-           int n = scanner.nextInt();
-           generateTrees(n);
-           /*
-           List<Integer> list = new ArrayList<>();
-           list.add(2);
-           list.add(3);
-           list.add(1);
-           list.add(4);
-           createTree(list);
-           */
-       }
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            int n = scanner.nextInt();
+            numTrees(n);
+        }
     }
-
 }
