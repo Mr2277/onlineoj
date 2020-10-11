@@ -18,6 +18,7 @@ public class LeetCode96 {
     }
 
     public static int numTrees(int n) {
+        /*
         List<TreeNode> nodes = new ArrayList<>();
         if (n == 0) {
             return nodes.size();
@@ -37,6 +38,13 @@ public class LeetCode96 {
             }
         }
         return nodes.size();
+        */
+        // 提示：我们在这里需要用 long 类型防止计算过程中的溢出
+        long C = 1;
+        for (int i = 0; i < n; ++i) {
+            C = C * 2 * (2 * i + 1) / (i + 2);
+        }
+        return (int) C;
     }
 
     public  static TreeNode createTree(List<Integer> nodes) {
