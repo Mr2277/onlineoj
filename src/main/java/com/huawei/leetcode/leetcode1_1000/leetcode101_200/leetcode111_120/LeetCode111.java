@@ -175,13 +175,24 @@ public class LeetCode111 {
         }
     }
     */
+
+    public static int minDeep(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftDeep = minDepth(root.left);
+        int rightDeep = minDepth(root.right);
+        return Integer.max(leftDeep, rightDeep) + 1;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
             //System.out.println(minDepth(root));
-            minDepth(root);
+            //minDepth(root);
+            minDeep(root);
         }
     }
 }
