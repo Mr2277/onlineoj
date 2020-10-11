@@ -180,9 +180,9 @@ public class LeetCode111 {
         if (root == null) {
             return 0;
         }
-        int leftDeep = minDepth(root.left);
-        int rightDeep = minDepth(root.right);
-        return Integer.max(leftDeep, rightDeep) + 1;
+        int leftDeep = minDeep(root.left);
+        int rightDeep = minDeep(root.right);
+        return (leftDeep == 0 || rightDeep == 0) ? leftDeep + rightDeep + 1 : Integer.min(leftDeep, rightDeep) + 1;
     }
 
     public static void main(String[] args) {
@@ -192,7 +192,7 @@ public class LeetCode111 {
             TreeNode root = create(str);
             //System.out.println(minDepth(root));
             //minDepth(root);
-            minDeep(root);
+            System.out.println(minDeep(root));
         }
     }
 }
