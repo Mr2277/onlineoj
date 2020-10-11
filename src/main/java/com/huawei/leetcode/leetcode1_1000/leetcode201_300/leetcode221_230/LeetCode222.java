@@ -13,7 +13,7 @@ public class LeetCode222 {
             val = x;
         }
     }
-
+    /*
     public static int countNodes(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         result = preOrder(root, result);
@@ -30,7 +30,14 @@ public class LeetCode222 {
             return result;
         }
     }
+    */
 
+    public int countNodes(TreeNode root) {
+        if (root == null){
+            return 0;
+        }
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
     public static void main(String[] args) {
 
     }
