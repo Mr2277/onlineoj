@@ -15,7 +15,6 @@ public class Offer323 {
             val = x;
         }
     }
-
     public static TreeNode create(String str) {
         int index = 0;
         char ch = str.charAt(index);
