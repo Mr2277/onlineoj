@@ -1,11 +1,11 @@
-package com.huawei.leetcode.leetcode1001_2000.leetcode1001_1100.leetcode1021_1030;
+package com.huawei.leetcode.leetcode1001_2000.leetcode1101_1200.leetcode1101_1110;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class LeetCode1022 {
+public class LeetCode1110 {
 
     static class TreeNode {
         int val;
@@ -73,33 +73,28 @@ public class LeetCode1022 {
         return treeNodeStack.peek();
     }
 
-    public static int sumRootToLeaf(TreeNode root) {
-        List<String> list = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
-        list = allPath(root, builder, list);
-        int sum = 0;
-        for (String str : list) {
-            //BigInteger bigInteger = new BigInteger(str, 2);
-            Integer integer = Integer.valueOf(str, 2);
-            sum += integer.intValue();
+    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        for (Integer integer : to_delete) {
+            findDeleteNode(root, integer);
         }
-        return sum;
+        List<TreeNode> nodes = new ArrayList<>();
+        System.out.println(nodes.size());
+        return nodes;
     }
 
-    public static List<String> allPath(TreeNode root, StringBuilder builder, List<String> paths) {
+    public List<> void createTrees(TreeNode root) {
+        if (root)
+    }
+
+    public static void findDeleteNode(TreeNode root, int target) {
         if (root == null) {
-            return paths;
-        } else if (root.left == null && root.right == null){
-            builder.append(root.val);
-            paths.add(builder.toString());
-            builder.deleteCharAt(builder.length() - 1);
-            return paths;
+            return;
+        } else if (root.val == target) {
+            root.val = 0;
+            return;
         } else {
-            builder.append(root.val);
-            allPath(root.left, builder, paths);
-            allPath(root.right, builder, paths);
-            builder.deleteCharAt(builder.length() - 1);
-            return paths;
+            findDeleteNode(root.left, target);
+            findDeleteNode(root.right, target);
         }
     }
 
@@ -108,7 +103,8 @@ public class LeetCode1022 {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            sumRootToLeaf(root);
+            int[] toDelete = new int[] {3,5};
+            delNodes(root, toDelete);
         }
     }
 }
