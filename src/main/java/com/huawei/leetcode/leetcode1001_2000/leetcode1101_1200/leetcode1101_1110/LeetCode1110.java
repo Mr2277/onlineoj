@@ -73,18 +73,7 @@ public class LeetCode1110 {
         return treeNodeStack.peek();
     }
 
-    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
-        for (Integer integer : to_delete) {
-            findDeleteNode(root, integer);
-        }
-        List<TreeNode> nodes = new ArrayList<>();
-        System.out.println(nodes.size());
-        return nodes;
-    }
 
-    public List<> void createTrees(TreeNode root) {
-        if (root)
-    }
 
     public static void findDeleteNode(TreeNode root, int target) {
         if (root == null) {
@@ -104,7 +93,7 @@ public class LeetCode1110 {
             String str = scanner.nextLine();
             TreeNode root = create(str);
             int[] toDelete = new int[] {3,5};
-            delNodes(root, toDelete);
+            // delNodes(root, toDelete);
         }
     }
 }
