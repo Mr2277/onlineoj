@@ -1,9 +1,7 @@
 package com.huawei.leetcode.leetcode1001_2000.leetcode1101_1200.leetcode1101_1110;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LeetCode1110 {
 
@@ -84,6 +82,79 @@ public class LeetCode1110 {
         } else {
             findDeleteNode(root.left, target);
             findDeleteNode(root.right, target);
+        }
+    }
+
+    public static List<TreeNode> delNodes(TreeNode root, int[] to_delete) {
+        List<TreeNode> nodes = new ArrayList<>();
+        if (root == null) {
+            return nodes;
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (Integer integer : to_delete) {
+            set.add(integer);
+        }
+        Queue<TreeNode> treeNodeQueue = new LinkedList<>();
+        treeNodeQueue.add(root);
+        nodes.add(root);
+        while (!treeNodeQueue.isEmpty()) {
+            int size = treeNodeQueue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = treeNodeQueue.poll();
+                if (node.left != null) {
+                    treeNodeQueue.add(node.left);
+                }
+                if (node.right != null) {
+                    treeNodeQueue.add(node.right);
+                }
+                /*
+                if (node.val == 0) {
+                    if (node.left != null ) {
+                        nodes.add(node.left);
+                    }
+                    if (node.right != null) {
+                        nodes.add(node.right);
+                    }
+                    node = null;
+                }
+                */
+                if (set.contains(node.val)) {
+                    node.val = 0;
+                    if (node.left != null) {
+                        nodes.add(node.left);
+                    }
+                    if (node.right != null) {
+                        nodes.add(node.right);
+                    }
+                }
+            }
+        }
+
+        for (TreeNode node : nodes) {
+            setNodeNull(node);
+        }
+        nodes = nodes.stream().filter(treeNode -> treeNode.val != 0).collect(Collectors.toList());
+        return nodes;
+    }
+
+    public static void setNodeNull(TreeNode root) {
+        if (root == null) {
+            return;
+        } else {
+            if (root.left != null && root.left.val == 0) {
+                root.left = null;
+            }
+            if (root.right != null && root.right.val == 0) {
+                root.right = null;
+            }
+            if (root.val == 0) {
+                root = null;
+            }
+            if (root != null) {
+                setNodeNull(root.left);
+                setNodeNull(root.right);
+            }
         }
     }
 
