@@ -164,7 +164,6 @@ public class LeetCode1110 {
             String str = scanner.nextLine();
             TreeNode root = create(str);
             int[] toDelete = new int[] {3,5};
-            // delNodes(root, toDelete);
         }
     }
 }
