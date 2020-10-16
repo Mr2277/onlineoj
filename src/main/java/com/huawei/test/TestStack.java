@@ -12,5 +12,13 @@ public class TestStack {
         System.out.println(stack.peek());
         stack.empty();
         System.out.println(stack.size());
+
+        //Stack<String> stack = new Stack();
+        stack.add("a");
+        stack.add("b");
+        stack.add("c");
+        System.out.println(stack.peek());
+        stack.empty();
+        System.out.println(stack.size());
     }
 }
