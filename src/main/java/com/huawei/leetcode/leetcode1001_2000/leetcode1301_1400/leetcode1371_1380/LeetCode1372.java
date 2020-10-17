@@ -153,20 +153,24 @@ public class LeetCode1372 {
         if (root == null) {
             return -1;
         }
-        DFS(root, true);
-        DFS(root, false);
-        return result;
+        //DFS(root, true);
+        //DFS(root, false);
+        return Integer.max(DFS(root, true, 1), DFS(root, false, 1));
     }
 
-    public static int DFS(TreeNode root, boolean isLeft) {
+    public static int DFS(TreeNode root, boolean isLeft, int level) {
         if (root == null) {
             return 0;
         } else {
-            int left = DFS(root.left, true);
-            int right = DFS(root.right ,false);
+            int left = DFS(root.left, true, level + 1);
+            int right = DFS(root.right ,false, level + 1);
             int max = Integer.max(left, right);
-            result = Integer.max(max, result);
-            return isLeft ? right + 1 : left + 1;
+            //result = Integer.max(max, result);
+            if (level == 1) {
+                return isLeft ? right : left;
+            } else {
+                return isLeft ? right + 1 : left + 1;
+            }
         }
     }
 
@@ -175,7 +179,7 @@ public class LeetCode1372 {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-          longestZigZag(root);
+            System.out.println(longestZigZag(root));
         }
     }
 }
