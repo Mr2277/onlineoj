@@ -1,9 +1,6 @@
 package com.huawei.leetcode.jianqiaooffer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Offer68I {
 
@@ -72,16 +69,13 @@ public class Offer68I {
         }
         return treeNodeStack.peek();
     }
-
+    /*
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         List<TreeNode> pList = new ArrayList<>();
         pList = findPath(root, p, pList);
         List<TreeNode> qList = new ArrayList<>();
         qList = findPath(root, q, qList);
-        /*
-        System.out.println(pList.size());
-        System.out.println(qList.size());
-        */
+
         int size = Integer.min(qList.size(), pList.size());
         int i = 0;
         for (i = 0; i < size - 1; i++) {
@@ -107,13 +101,44 @@ public class Offer68I {
             return leftPath == null ? rightPath : leftPath;
         }
     }
+    */
+    //public static Set<TreeNode> set = new HashSet<>();
+
+    //public static Queue<TreeNode> queue = new LinkedList<>();
+
+    //ublic static Map<TreeNode, Integer> map = new LinkedHashMap<>();
+
+    public static List<TreeNode> list = new ArrayList<>();
+
+    public static TreeNode findParent(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> includes = new ArrayList<>();
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            includes.add(root);
+        }
+        TreeNode left = findParent(root.left, p, q);
+        TreeNode right = findParent(root.right, p, q);
+        if (left != null) {
+            includes.add(left);
+        }
+        if (right != null) {
+            includes.add(right);
+        }
+        if (includes.size() == 2) {
+            list.add(root);
+        }
+        return includes.isEmpty() ? null : includes.get(0);
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            lowestCommonAncestor(root, root.left.left, root.right.right);
+            //lowestCommonAncestor(root, root.left.left, root.right.right);
+            findParent(root, root.left, root.left.right);
         }
     }
 }
