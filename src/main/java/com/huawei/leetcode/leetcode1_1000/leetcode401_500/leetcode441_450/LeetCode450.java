@@ -1,5 +1,6 @@
 package com.huawei.leetcode.leetcode1_1000.leetcode401_500.leetcode441_450;
 
+import java.util.Scanner;
 import java.util.Stack;
 
 public class LeetCode450 {
@@ -68,5 +69,44 @@ public class LeetCode450 {
             ch = index < str.length() ? str.charAt(index) : ')';
         }
         return treeNodeStack.peek();
+    }
+
+    public static TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return root;
+        } else if (root.val > key) {
+            deleteNode(root.left, key);
+        } else if (root.val < key) {
+            deleteNode(root.right, key);
+        } else {
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            } else {
+
+            }
+
+        }
+        return root;
+    }
+
+    public static TreeNode minNode(TreeNode root) {
+        if (root == null) {
+            return null;
+        } else {
+            TreeNode node = null;
+            node = minNode(root.left);
+            return node == null ? root : node;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            String str = scanner.nextLine();
+            TreeNode root = create(str);
+            System.out.println(minNode(root).val);
+        }
     }
 }
