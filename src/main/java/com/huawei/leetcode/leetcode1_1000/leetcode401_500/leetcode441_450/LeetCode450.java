@@ -75,18 +75,18 @@ public class LeetCode450 {
         if (root == null) {
             return root;
         } else if (root.val > key) {
-            deleteNode(root.left, key);
+            root.left = deleteNode(root.left, key);
         } else if (root.val < key) {
-            deleteNode(root.right, key);
+            root.right = deleteNode(root.right, key);
         } else {
             if (root.left == null) {
                 return root.right;
             } else if (root.right == null) {
                 return root.left;
             } else {
-
+                minNode(root.right).left = root.left;
+                return root.right;
             }
-
         }
         return root;
     }
@@ -106,7 +106,8 @@ public class LeetCode450 {
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            System.out.println(minNode(root).val);
+            //System.out.println(minNode(root).val);
+            deleteNode(root, 0);
         }
     }
 }
