@@ -88,4 +88,8 @@ public class LeetCode965 {
             return DFS(root.left, nodeSet) && DFS(root.right, nodeSet);
         }
     }
+
+    public static void main(String[] args) {
+
+    }
 }
