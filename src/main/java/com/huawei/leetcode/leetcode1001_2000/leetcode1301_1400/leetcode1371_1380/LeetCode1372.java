@@ -1,7 +1,5 @@
 package com.huawei.leetcode.leetcode1001_2000.leetcode1301_1400.leetcode1371_1380;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
