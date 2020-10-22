@@ -82,24 +82,20 @@ public class Problem0408 {
             return null;
         } else {
             List<TreeNode> includes = new ArrayList<>();
-            List<TreeNode> leftIncludes = new ArrayList<>();
-            List<TreeNode> rightIncludes = new ArrayList<>();
             if (root == p || root == q) {
                 includes.add(root);
             }
-            if (root.left != null) {
-                leftIncludes = DLR(root.left, p, q);
-            }
-            if (root.right != null) {
-                rightIncludes = DLR(root.right, p, q);
-            }
-            if (includes.size() + leftIncludes.size() + rightIncludes.size() == 2 && parent == null) {
+            List<TreeNode> leftIncludes = DLR(root.left, p, q);
+            List<TreeNode> rightIncludes = DLR(root.right, p, q);
+            int leftSize = leftIncludes == null ? 0 : leftIncludes.size();
+            int rightSize = rightIncludes == null ? 0 : rightIncludes.size();
+            if (includes.size() + leftSize + rightSize == 2 && parent == null) {
                 parent = root;
             }
-            if (!leftIncludes.isEmpty()) {
+            if (leftIncludes != null && !leftIncludes.isEmpty()) {
                 includes.addAll(leftIncludes);
             }
-            if (!rightIncludes.isEmpty()) {
+            if (rightIncludes != null && !rightIncludes.isEmpty()) {
                 includes.addAll(rightIncludes);
             }
             return includes;
