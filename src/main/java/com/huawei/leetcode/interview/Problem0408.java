@@ -85,18 +85,20 @@ public class Problem0408 {
             if (root == p || root == q) {
                 includes.add(root);
             }
-            List<TreeNode> leftIncludes = DLR(root.left, p, q);
-            List<TreeNode> rightIncludes = DLR(root.right, p, q);
-            int leftSize = leftIncludes == null ? 0 : leftIncludes.size();
-            int rightSize = rightIncludes == null ? 0 : rightIncludes.size();
-            if (includes.size() + leftSize + rightSize == 2 && parent == null) {
-                parent = root;
-            }
-            if (leftIncludes != null && !leftIncludes.isEmpty()) {
-                includes.addAll(leftIncludes);
-            }
-            if (rightIncludes != null && !rightIncludes.isEmpty()) {
-                includes.addAll(rightIncludes);
+            if (parent == null) {
+                List<TreeNode> leftIncludes = DLR(root.left, p, q);
+                List<TreeNode> rightIncludes = DLR(root.right, p, q);
+                int leftSize = leftIncludes == null ? 0 : leftIncludes.size();
+                int rightSize = rightIncludes == null ? 0 : rightIncludes.size();
+                if (includes.size() + leftSize + rightSize == 2 && parent == null) {
+                    parent = root;
+                }
+                if (leftIncludes != null && !leftIncludes.isEmpty()) {
+                    includes.addAll(leftIncludes);
+                }
+                if (rightIncludes != null && !rightIncludes.isEmpty()) {
+                    includes.addAll(rightIncludes);
+                }
             }
             return includes;
         }
