@@ -47,7 +47,7 @@ public class Problem1619 {
         return up + right + down + left + leftDown + leftUp + rightDown + rihtUp + 1;
     }
     */
-
+    /*
     public static int[] pondSizes(int[][] land) {
         List<List<Location>> paths = new ArrayList<>();
         List<Location> path = new ArrayList<>();
@@ -75,12 +75,14 @@ public class Problem1619 {
         }
         List<Integer> result = new ArrayList<>();
         for (List<Location> locations : copyPaths) {
-            /*
+
             for (Location location : locations) {
                 System.out.print(location.x + "#" + location.y + " ");
             }
             System.out.println();
-            */
+
+
+
             result.add(locations.size());
         }
         int[] arr1 = result.stream().sorted().mapToInt(Integer::intValue).toArray();
@@ -112,6 +114,121 @@ public class Problem1619 {
         }
         path.remove(path.size() - 1);
         return paths;
+    }
+    */
+
+    public static int[] pondSizes(int[][] land) {
+        int rows = land.length;
+        int cols = land[0].length;
+        List<List<Location>> paths = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (land[i][j] == 0) {
+                    paths.add(BFS(land, i, j));
+                }
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        for (List<Location> locations : paths) {
+            /*
+            for (Location location : locations) {
+                System.out.print(location.x + "#" + location.y + " ");
+            }
+            */
+            // System.out.println();
+            result.add(locations.size());
+        }
+        int[] arr1 = result.stream().sorted().mapToInt(Integer::intValue).toArray();
+        return arr1;
+    }
+
+    public static List<Location> BFS(int[][] land, int x, int y) {
+        //Queue<Location> queue = new LinkedList<>();
+        List<Location> locations = new ArrayList<>();
+        int front = 0, rear = 0;
+        Location location = new Location(x, y);
+        locations.add(location);
+        rear++;
+        land[x][y] = -1;
+        while (rear > front) {
+            Location cur = locations.get(front++);
+            int nextX = x;
+            int nextY = y;
+            if (isIndexOutOf(cur.x - 1, cur.y, land)) {
+                nextX = cur.x - 1;
+                nextY = cur.y;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x - 1, cur.y + 1, land)) {
+                nextX = cur.x - 1;
+                nextY = cur.y + 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x, cur.y + 1, land)) {
+                nextX = cur.x;
+                nextY = cur.y + 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x + 1, cur.y + 1, land)) {
+                nextX = cur.x + 1;
+                nextY = cur.y + 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x + 1, cur.y, land)) {
+                nextX = cur.x + 1;
+                nextY = cur.y;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x + 1, cur.y - 1, land)) {
+                nextX = cur.x + 1;
+                nextY = cur.y - 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x, cur.y - 1, land)) {
+                nextX = cur.x;
+                nextY = cur.y - 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+            if (isIndexOutOf(cur.x - 1, cur.y - 1, land)) {
+                nextX = cur.x - 1;
+                nextY = cur.y - 1;
+                land[nextX][nextY] = -1;
+                Location nextLocation = new Location(nextX, nextY);
+                locations.add(nextLocation);
+                rear++;
+            }
+        }
+        return locations;
+    }
+
+    public static boolean isIndexOutOf(int x, int y, int[][] land) {
+        int rows = land.length;
+        int cols = land[0].length;
+        if (x < 0 || x >= rows || y < 0 || y >= cols || land[x][y] != 0) {
+            return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
