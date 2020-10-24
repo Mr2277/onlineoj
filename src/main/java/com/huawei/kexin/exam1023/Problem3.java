@@ -58,52 +58,61 @@ public class Problem3 {
        int sum;
        int step;
        int back;
+       List<Integer> path;
        CurrentInfo (int index, int sum, int step, int back) {
            this.back = back;
            this.index = index;
            this.step = step;
            this.sum = sum;
+           this.path = new ArrayList<>();
        }
     }
 
     public static int maxSum(int[] nums, int step, int back, int index) {
         List<CurrentInfo> currentInfos = new ArrayList<>();
         CurrentInfo currentInfo = new CurrentInfo(index, nums[index], step, back);
+        currentInfo.path.add(index);
         currentInfos.add(currentInfo);
-        int backCopy = back;
-        int stepCopy = step;
+        int max = Integer.MIN_VALUE;
         int front = 0, rear = 1;
         while (rear > front) {
             CurrentInfo cur = currentInfos.get(front++);
-            int curBack = cur.back;
-            int curStep = cur.step;
-            int curIndex = cur.index;
-            int curSum = cur.sum;
-            if (curBack > 0 && curStep > 0) {
-                int newBack = curBack - 1;
-                int newStep = curStep - 1;
-                int newIndex = curIndex - 1;
-                int newSum = curSum + nums[newIndex];
+            if (cur.back > 0 && cur.step > 0) {
+                int newBack = cur.back - 1;
+                int newStep = cur.step - 1;
+                int newIndex = cur.index - 1;
+                int newSum = cur.sum + nums[newIndex];
                 CurrentInfo newCurentInfo = new CurrentInfo(newIndex, newSum, newStep, newBack);
+                newCurentInfo.path.addAll(cur.path);
+                newCurentInfo.path.add(newIndex);
                 currentInfos.add(newCurentInfo);
                 rear++;
             }
-            if (curStep > 0) {
-                int newBack = curBack;
-                int newStep = curStep - 1;
-                int newIndex = curIndex + 1;
-                int newSum = curSum + nums[newIndex];
+            if (cur.step > 0) {
+                int newBack = cur.back;
+                int newStep = cur.step - 1;
+                int newIndex = cur.index + 1;
+                int newSum = cur.sum + nums[newIndex];
                 CurrentInfo newCurrentInfo = new CurrentInfo(newIndex, newSum, newStep, newBack);
+                newCurrentInfo.path.addAll(cur.path);
+                newCurrentInfo.path.add(newIndex);
                 currentInfos.add(newCurrentInfo);
                 rear++;
+            }
+            if (cur.step == 0 && cur.sum > max) {
+                max = cur.sum;
             }
         }
         for (CurrentInfo currentInfo1 : currentInfos) {
             System.out.println("index:" + currentInfo1.index + "sum:" + currentInfo1.sum
             + "step:" + currentInfo1.step + "back:" + currentInfo1.back);
+            for (Integer integer : currentInfo1.path) {
+                System.out.print(integer + " ");
+            }
+            System.out.println();
         }
-        return 0;
-        }
+        return max;
+    }
         //return 0;
 
 
