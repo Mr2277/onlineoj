@@ -2,11 +2,12 @@ package com.huawei.test;
 
 import java.util.Scanner;
 
-class Node{
-    public Integer integer;
-    public Node next;
-}
+
 public class Test3 {
+    static class Node{
+        public Integer integer;
+        public Node next;
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Node head = new Node();
