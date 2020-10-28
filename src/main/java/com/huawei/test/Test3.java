@@ -2,8 +2,8 @@ package com.huawei.test;
 
 import java.util.Scanner;
 
-
 public class Test3 {
+
     static class Node{
         public Integer integer;
         public Node next;
