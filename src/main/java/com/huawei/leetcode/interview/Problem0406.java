@@ -93,8 +93,8 @@ public class Problem0406 {
         return path;
     }
     */
-    public static TreeNode target = null;
-
+    //public static TreeNode target = null;
+    /*
     public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if (root == null) {
             return root;
@@ -118,13 +118,33 @@ public class Problem0406 {
         }
         return target;
     }
-
+    */
+    /*
+    public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if(root==null){
+            return aimNode;
+        }
+        //下面所有代码是正常中序顺序的步骤
+        inorderSuccessor(root.left,p);
+        if(root==p){
+            //找到p节点，打开开关
+            flag = true;
+        }else if(flag){
+            //root不为p，且开关被打开时，才能进入此处
+            //传出这个后继节点
+            aimNode = root;
+            flag =false;
+        }
+        inorderSuccessor(root.right,p);
+        return aimNode;
+    }
+    */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            inorderSuccessor(root, root.left.right);
+            //inorderSuccessor(root, root.left.right);
         }
     }
 }
