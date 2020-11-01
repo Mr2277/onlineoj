@@ -68,7 +68,7 @@ public class LeetCode515 {
         }
         return treeNodeStack.peek();
     }
-
+    /*
     public static List<Integer> largestValues(TreeNode root) {
         Map<Integer, List<Integer>> levelNodeMap = new HashMap<>();
         levelNodes(root, levelNodeMap, 1);
@@ -105,6 +105,26 @@ public class LeetCode515 {
         levelNodes(root.left, levelNodeMap, depth + 1);
         levelNodes(root.right, levelNodeMap, depth + 1);
         return levelNodeMap;
+    }
+    */
+    public static List<Integer> largestValues(TreeNode root) {
+         List<Integer> list = new ArrayList<>();
+         return DLR(root, 0, list);
+    }
+
+    public static List<Integer> DLR(TreeNode root, int depth, List<Integer> levels) {
+        if (root ==  null) {
+            return levels;
+        }
+        if (depth >= levels.size()) {
+            levels.add(root.val);
+        } else {
+            int max = Integer.max(root.val, levels.get(depth));
+            levels.set(depth, max);
+        }
+        DLR(root.left, depth + 1, levels);
+        DLR(root.right, depth + 1, levels);
+        return levels;
     }
 
     public static void main(String[] args) {
