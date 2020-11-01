@@ -70,7 +70,7 @@ public class Problem0406 {
         }
         return treeNodeStack.peek();
     }
-
+    /*
     public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         List<TreeNode> path = new ArrayList<>();
         path = LDR(root, path);
@@ -92,13 +92,39 @@ public class Problem0406 {
         LDR(root.right, path);
         return path;
     }
+    */
+    public static TreeNode target = null;
+
+    public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        if (root == null) {
+            return root;
+        }
+        if (root == p) {
+            target = root.right;
+        }
+        if (root.left != null) {
+            if (root.left == p) {
+                target = root;
+            } else {
+                inorderSuccessor(root.left, p);
+            }
+        }
+        if (root.right != null) {
+            if (root.right == p) {
+                target = root.right.right;
+            } else {
+                inorderSuccessor(root.right, p);
+            }
+        }
+        return target;
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String str = scanner.nextLine();
             TreeNode root = create(str);
-            inorderSuccessor(root, root.right);
+            inorderSuccessor(root, root.left.right);
         }
     }
 }
