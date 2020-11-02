@@ -24,7 +24,9 @@ public class LeetCode542 {
         }
         return matrix;
     }
+
     public static Map<String, Integer> locationMap = new HashMap<>();
+
     public static int findZero(int[][] matrix, int depth, int x, int y, String key) {
         int rows = matrix.length;
         int cols = matrix[0].length;
