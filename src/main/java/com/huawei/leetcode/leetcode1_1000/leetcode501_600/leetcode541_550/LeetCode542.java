@@ -1,8 +1,6 @@
 package com.huawei.leetcode.leetcode1_1000.leetcode501_600.leetcode541_550;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class LeetCode542 {
     /*
@@ -69,6 +67,80 @@ public class LeetCode542 {
         return result;
     }
     */
+
+    public static int[][] updateMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 1) {
+                    int resut = BFS(matrix, i, j);
+                    matrix[i][j] = resut;
+                }
+            }
+        }
+        return matrix;
+    }
+
+    public static int BFS(int[][] matrix, int x, int y) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        Queue<String> queue = new LinkedList<>();
+        queue.add(String.valueOf(x) + "@" + String.valueOf(y));
+        int step = 0, curSize = 0, lastSize = 0;
+        while (!queue.isEmpty()) {
+            curSize = queue.size();
+            if (curSize != lastSize) {
+                step++;
+            }
+            lastSize = curSize;
+            for (int i = 0; i < curSize; i++) {
+                String[] location = queue.poll().split("@");
+                int curX = Integer.parseInt(location[0]) - 1;
+                int curY = Integer.parseInt(location[1]);
+                if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
+                    if (matrix[curX][curY] == 1) {
+                        queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
+                    } else {
+                        queue.clear();
+                        break;
+                    }
+                }
+                curX = Integer.parseInt(location[0]);
+                curY = Integer.parseInt(location[1]) + 1;
+                if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
+                    if (matrix[curX][curY] == 1) {
+                        queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
+                    } else {
+                        queue.clear();
+                        break;
+                    }
+                }
+                curX = Integer.parseInt(location[0]) + 1;
+                curY = Integer.parseInt(location[1]);
+                if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
+                    if (matrix[curX][curY] == 1) {
+                        queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
+                    } else {
+                        queue.clear();
+                        break;
+                    }
+                }
+                curX = Integer.parseInt(location[0]);
+                curY = Integer.parseInt(location[1]) - 1;
+                if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
+                    if (matrix[curX][curY] == 1) {
+                        queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
+                    } else {
+                        queue.clear();
+                        break;
+                    }
+                }
+
+            }
+        }
+        return step;
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
