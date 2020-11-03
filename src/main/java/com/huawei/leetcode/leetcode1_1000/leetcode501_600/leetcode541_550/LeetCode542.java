@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class LeetCode542 {
-
+    /*
     public static int[][] updateMatrix(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -68,6 +68,7 @@ public class LeetCode542 {
         result = Integer.min(result, right);
         return result;
     }
+    */
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -77,6 +78,6 @@ public class LeetCode542 {
                 {1, 1, 1, 1},
                 {1, 1, 1, 1}
         };
-        updateMatrix(map);
+        //updateMatrix(map);
     }
 }
