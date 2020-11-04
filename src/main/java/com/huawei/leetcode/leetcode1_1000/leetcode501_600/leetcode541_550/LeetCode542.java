@@ -71,17 +71,82 @@ public class LeetCode542 {
     public static int[][] updateMatrix(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[0].length;
+        Queue<String> queue = new LinkedList<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (matrix[i][j] == 1) {
-                    int resut = BFS(matrix, i, j);
-                    matrix[i][j] = resut;
+                if (matrix[i][j] == 0) {
+                    //BFS(matrix, i, j);
+                    String element = i + "@" + j + "@" + 0;
+                    queue.add(element);
                 }
             }
         }
+        BFS(matrix, queue);
         return matrix;
     }
 
+    public static void BFS(int[][] matrix, Queue<String> queue) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean[][] flag = new boolean[rows][cols];
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String[] curElements = queue.poll().split("@");
+                int curX = Integer.parseInt(curElements[0]);
+                int curY = Integer.parseInt(curElements[1]);
+                int step = Integer.parseInt(curElements[2]);
+                flag[curX][curY] = true;
+                int xx = curX + 1;
+                int yy = curY;
+                String element = "";
+                if (isAdd(xx, yy, matrix)) {
+                    if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
+                        matrix[xx][xx] = step + 1;
+                        element = xx + "@" + yy + "@" + (step + 1);
+                        queue.add(element);
+                    }
+                }
+                xx = curX;
+                yy = curY + 1;
+                if (isAdd(xx, yy, matrix)) {
+                    if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
+                        matrix[xx][xx] = step + 1;
+                        element = xx + "@" + yy + "@" + (step + 1);
+                        queue.add(element);
+                    }
+                }
+                xx = curX + 1;
+                yy = curY;
+                if (isAdd(xx, yy, matrix)) {
+                    if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
+                        matrix[xx][xx] = step + 1;
+                        element = xx + "@" + yy + "@" + (step + 1);
+                        queue.add(element);
+                    }
+                }
+                xx = curX;
+                yy = curY - 1;
+                if (isAdd(xx, yy, matrix)) {
+                    if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
+                        matrix[xx][xx] = step + 1;
+                        element = xx + "@" + yy + "@" + (step + 1);
+                        queue.add(element);
+                    }
+                }
+            }
+        }
+    }
+
+    public static boolean isAdd(int x, int y, int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        if (x >= 0 && x < rows && y >= 0 && y < cols) {
+            return true;
+        }
+        return false;
+    }
+   /*
     public static int BFS(int[][] matrix, int x, int y) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -138,9 +203,9 @@ public class LeetCode542 {
         }
         return step;
     }
+    */
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         int[][] map = new int[][] {
                 {0, 1, 0, 1},
                 {1, 0, 0, 0},
