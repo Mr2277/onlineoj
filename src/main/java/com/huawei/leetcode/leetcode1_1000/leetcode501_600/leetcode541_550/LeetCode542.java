@@ -67,7 +67,7 @@ public class LeetCode542 {
         return result;
     }
     */
-
+    /*
     public static int[][] updateMatrix(int[][] matrix) {
         int rows = matrix.length;
         int cols = matrix[0].length;
@@ -97,12 +97,12 @@ public class LeetCode542 {
                 int curY = Integer.parseInt(curElements[1]);
                 int step = Integer.parseInt(curElements[2]);
                 flag[curX][curY] = true;
-                int xx = curX + 1;
+                int xx = curX - 1;
                 int yy = curY;
                 String element = "";
                 if (isAdd(xx, yy, matrix)) {
                     if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
-                        matrix[xx][xx] = step + 1;
+                        matrix[xx][yy] = step + 1;
                         element = xx + "@" + yy + "@" + (step + 1);
                         queue.add(element);
                     }
@@ -111,7 +111,7 @@ public class LeetCode542 {
                 yy = curY + 1;
                 if (isAdd(xx, yy, matrix)) {
                     if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
-                        matrix[xx][xx] = step + 1;
+                        matrix[xx][yy] = step + 1;
                         element = xx + "@" + yy + "@" + (step + 1);
                         queue.add(element);
                     }
@@ -120,7 +120,7 @@ public class LeetCode542 {
                 yy = curY;
                 if (isAdd(xx, yy, matrix)) {
                     if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
-                        matrix[xx][xx] = step + 1;
+                        matrix[xx][yy] = step + 1;
                         element = xx + "@" + yy + "@" + (step + 1);
                         queue.add(element);
                     }
@@ -129,7 +129,7 @@ public class LeetCode542 {
                 yy = curY - 1;
                 if (isAdd(xx, yy, matrix)) {
                     if (!flag[xx][yy] || matrix[xx][yy] > step + 1) {
-                        matrix[xx][xx] = step + 1;
+                        matrix[xx][yy] = step + 1;
                         element = xx + "@" + yy + "@" + (step + 1);
                         queue.add(element);
                     }
@@ -204,7 +204,37 @@ public class LeetCode542 {
         return step;
     }
     */
+    public static int[][] updateMatrix(int[][] matrix) {
+        int[][] res;
+        int[][] dir=new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
+        res=new int[matrix.length][matrix[0].length];
+        LinkedList<int[]> queue=new LinkedList<>();
 
+        for(int i=0;i<matrix.length;i++)
+            for(int j=0;j<matrix[0].length;j++)
+                if(matrix[i][j]==0)//将0元素入队
+                {
+                    res[i][j]=0;
+                    matrix[i][j]=-1;
+                    queue.add(new int[]{i,j});
+                }
+        while (!queue.isEmpty())
+        {
+            int[] p=queue.removeFirst();
+            int x=p[0],y=p[1];
+            for(int[] d:dir)//4个方向入队
+            {
+                int nextX=x+d[0],nextY=y+d[1];
+                if(nextX<0||nextY<0||nextX>=matrix.length||nextY>=matrix[0].length||matrix[nextX][nextY]==-1)//不符合的情况剔除
+                    continue;
+                res[nextX][nextY]=res[x][y]+1;
+                matrix[nextX][nextY]=-1;
+                queue.add(new int[]{nextX,nextY});
+            }
+
+        }
+        return res;
+    }
     public static void main(String[] args) {
         int[][] map = new int[][] {
                 {0, 1, 0, 1},
