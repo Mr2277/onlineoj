@@ -87,19 +87,14 @@ public class LeetCode542 {
         int cols = matrix[0].length;
         Queue<String> queue = new LinkedList<>();
         queue.add(String.valueOf(x) + "@" + String.valueOf(y));
-        int step = 0, curSize = 0, lastSize = 0;
+        int step = 0, curSize = 1, lastSize = 1;
         while (!queue.isEmpty()) {
-            curSize = queue.size();
-            if (curSize != lastSize) {
-                step++;
-            }
-            lastSize = curSize;
             for (int i = 0; i < curSize; i++) {
                 String[] location = queue.poll().split("@");
                 int curX = Integer.parseInt(location[0]) - 1;
                 int curY = Integer.parseInt(location[1]);
                 if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
-                    if (matrix[curX][curY] == 1) {
+                    if (matrix[curX][curY] != 0) {
                         queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
                     } else {
                         queue.clear();
@@ -109,7 +104,7 @@ public class LeetCode542 {
                 curX = Integer.parseInt(location[0]);
                 curY = Integer.parseInt(location[1]) + 1;
                 if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
-                    if (matrix[curX][curY] == 1) {
+                    if (matrix[curX][curY] != 0) {
                         queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
                     } else {
                         queue.clear();
@@ -119,7 +114,7 @@ public class LeetCode542 {
                 curX = Integer.parseInt(location[0]) + 1;
                 curY = Integer.parseInt(location[1]);
                 if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
-                    if (matrix[curX][curY] == 1) {
+                    if (matrix[curX][curY] != 0) {
                         queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
                     } else {
                         queue.clear();
@@ -129,7 +124,7 @@ public class LeetCode542 {
                 curX = Integer.parseInt(location[0]);
                 curY = Integer.parseInt(location[1]) - 1;
                 if (curX >= 0 && curX < rows && curY >=0 && curY < cols) {
-                    if (matrix[curX][curY] == 1) {
+                    if (matrix[curX][curY] != 0) {
                         queue.add(String.valueOf(curX) + "@" + String.valueOf(curY));
                     } else {
                         queue.clear();
@@ -138,6 +133,8 @@ public class LeetCode542 {
                 }
 
             }
+            step++;
+
         }
         return step;
     }
@@ -150,6 +147,6 @@ public class LeetCode542 {
                 {1, 1, 1, 1},
                 {1, 1, 1, 1}
         };
-        //updateMatrix(map);
+        updateMatrix(map);
     }
 }
