@@ -209,14 +209,14 @@ public class LeetCode542 {
         int[][] dir=new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
         res=new int[matrix.length][matrix[0].length];
         LinkedList<int[]> queue=new LinkedList<>();
-
+        LinkedList<int[]> queue1 = new LinkedList<>();
         for(int i=0;i<matrix.length;i++)
             for(int j=0;j<matrix[0].length;j++)
                 if(matrix[i][j]==0)//将0元素入队
                 {
                     res[i][j]=0;
                     matrix[i][j]=-1;
-                    queue.add(new int[]{i,j});
+
                 }
         while (!queue.isEmpty())
         {
