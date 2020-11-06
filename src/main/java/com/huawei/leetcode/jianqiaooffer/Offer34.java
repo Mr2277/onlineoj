@@ -80,7 +80,19 @@ public class Offer34 {
     }
 
     public static List<List<Integer>> DFS(TreeNode root, int sum, List<Integer> path, List<List<Integer>> paths) {
-        return null;
+        if (root == null) {
+            return paths;
+        }
+        if (root.left == null && root.right == null) {
+            root.val = sum;
+            path.add(root.val);
+            List<Integer> copyPath = new ArrayList<>(path);
+            paths.add(copyPath);
+            return paths;
+        }
+        path.add(root.val);
+        ///DFS(root, )
+        return paths;
     }
 
     public static void main(String[] args) {
