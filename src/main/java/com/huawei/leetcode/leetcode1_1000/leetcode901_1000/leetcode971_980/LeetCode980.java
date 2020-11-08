@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LeetCode980 {
-
+    /*
     public static int uniquePathsIII(int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
@@ -28,19 +28,12 @@ public class LeetCode980 {
         List<List<String>> paths = new ArrayList<>();
         List<String> path = new ArrayList<>();
         DFS(path, paths, x, y, grid);
-        /*
-        for (List<String> list : paths) {
-            for (String str : list) {
-                System.out.print(str + " ");
-            }
-            System.out.println();
-        }
-        */
         paths = paths.stream().filter(element -> element.size() == locationSet.size() + 2).collect(Collectors.toList());
 
         return paths.size();
     }
-
+    */
+    /*
     public static List<List<String>> DFS(List<String> path, List<List<String>> paths, int x, int y, int[][] grid) {
         int rows = grid.length;
         int cols = grid[0].length;
@@ -65,12 +58,12 @@ public class LeetCode980 {
         }
         return paths;
     }
-
+    */
     public static void main(String[] args) {
         int[][] grip = new int[][] {
                 {0, 1},
                 {2, 0}
         };
-        System.out.println(uniquePathsIII(grip));
+        //System.out.println(uniquePathsIII(grip));
     }
 }
