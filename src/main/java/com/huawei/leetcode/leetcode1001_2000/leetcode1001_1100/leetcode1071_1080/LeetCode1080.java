@@ -71,14 +71,21 @@ public class LeetCode1080 {
     }
 
     public static TreeNode sufficientSubset(TreeNode root, int limit) {
-        if (root == null) {
-            return root;
+        if(root == null) {
+            return null;
         }
-        root = DLR(root, limit);
-        if (root != null) {
-            root.left = sufficientSubset(root.left, limit);
-            root.right = sufficientSubset(root.right, limit);
+        if(root.left == null && root.right == null && root.val < limit) {
+            // 叶子节点
+            return null;
         }
+        TreeNode left = sufficientSubset(root.left, limit - root.val);
+        TreeNode right = sufficientSubset(root.right, limit - root.val);
+        if((root.left != null || root.right != null) && (left == null && right == null)) {
+            // 非叶子节点 若处理后变成了叶子节点那么该节点也需要被删除
+            return null;
+        }
+        root.left = left;
+        root.right = right;
         return root;
     }
 
