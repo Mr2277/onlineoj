@@ -59,11 +59,50 @@ public class LeetCode980 {
         return paths;
     }
     */
+
+    public static int uniquePathsIII(int[][] grid) {
+        int x = 0;
+        int y = 0;
+        int step = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 0) {
+                    step++;
+                }
+                if (grid[i][j] == 1) {
+                    x = i;
+                    y = j;
+                }
+            }
+        }
+        return DFS(step + 1, x, y, grid);
+    }
+
+    public static int DFS(int cur, int x, int y, int[][] grid) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == -1) {
+            return 0;
+        }
+        if (grid[x][y] == 2) {
+            return cur == 0 ? 1 : 0;
+        }
+        int res = 0;
+        grid[x][y] = -1;
+        int[][] dir = new int[][] {{0, -1}, {0, 1}, {1, 0}, {-1,0}};
+        for (int[] d : dir) {
+            int nextX = x + d[0];
+            int nextY = y + d[1];
+            res += DFS(cur - 1, nextX, nextY, grid);
+        }
+        grid[x][y] = 0;
+        return res;
+    }
+
     public static void main(String[] args) {
         int[][] grip = new int[][] {
-                {0, 1},
-                {2, 0}
+                {1, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 2, -1}
         };
-        //System.out.println(uniquePathsIII(grip));
+        System.out.println(uniquePathsIII(grip));
     }
 }
