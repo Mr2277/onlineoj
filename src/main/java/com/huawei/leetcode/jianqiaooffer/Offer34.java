@@ -15,6 +15,7 @@ public class Offer34 {
             val = x;
         }
     }
+
     public static TreeNode create(String str) {
         int index = 0;
         char ch = str.charAt(index);
@@ -83,24 +84,27 @@ public class Offer34 {
         if (root == null) {
             return paths;
         }
-        if (root.left == null && root.right == null) {
-            root.val = sum;
-            path.add(root.val);
+        if (root.left == null && root.right == null && root.val == sum) {
             List<Integer> copyPath = new ArrayList<>(path);
+            copyPath.add(root.val);
             paths.add(copyPath);
             return paths;
         }
         path.add(root.val);
+        DFS(root.left, sum - root.val, path, paths);
+        DFS(root.right, sum - root.val, path, paths);
+        path.remove(path.size() - 1);
         return paths;
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            String str = scanner.nextLine();
+        //Scanner scanner = new Scanner(System.in);
+        //while (scanner.hasNext()) {
+            //String str = scanner.nextLine();
+            String str = "5(4(11(7,2),#),8(13,4(5,1)))";
             TreeNode root = create(str);
-            int sum = scanner.nextInt();
+            int sum = 22;
             pathSum(root, sum);
-        }
+
     }
 }
