@@ -74,47 +74,30 @@ public class LeetCode1080 {
         if (root == null) {
             return root;
         }
-        List<Integer> path = new ArrayList<>();
-        List<List<Integer>> paths = new ArrayList<>();
-        DLR(path, paths, root);
-        boolean isDelete = true;
-        for (List<Integer> list : paths) {
-            int sum = 0;
-            for (Integer integer : list) {
-                sum += integer;
-            }
-            if (sum >= limit) {
-                isDelete = false;
-                break;
-            }
+        root = DLR(root, limit);
+        if (root != null) {
+            root.left = sufficientSubset(root.left, limit);
+            root.right = sufficientSubset(root.right, limit);
         }
-        root.left = sufficientSubset(root.left, limit);
-        root.right = sufficientSubset(root.right ,limit);
-        return isDelete ? null : root;
-
+        return root;
     }
 
-    public static List<List<Integer>> DLR(List<Integer> path, List<List<Integer>> paths, TreeNode root) {
+    public static TreeNode DLR(TreeNode root, int limit) {
         if (root == null) {
-            return paths;
+            return root;
         }
+        root.left = DLR(root.left, limit - root.val);
+        root.right = DLR(root.right, limit - root.val);
         if (root.left == null && root.right == null) {
-            List<Integer> copyPath = new ArrayList<>(path);
-            copyPath.add(root.val);
-            paths.add(copyPath);
-            return paths;
+            return root.val >= limit ? root : null;
         }
-        path.add(root.val);
-        DLR(path, paths, root.left);
-        DLR(path, paths, root.right);
-        path.remove(path.size() - 1);
-        return paths;
+        return root;
     }
 
     public static void main(String[] args) {
-        String str = "5(4,8)";
+        String str = "5(6(8(9,10),3(2,1)),7(3(1,2),6(13,14)))";
         TreeNode root = create(str);
-        sufficientSubset(root, 7);
+        sufficientSubset(root, 6);
     }
 
 }
