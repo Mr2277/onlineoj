@@ -19,15 +19,16 @@ public class LeetCode576 {
         }
         int res = 0;
         int[][] dir = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
-        //grid[x][y] = -1;
-        for (int[] d : dir) {
+\        for (int[] d : dir) {
             int nextX = x + d[0];
             int nextY = y + d[1];
             res += DFS(grid, nextX, nextY, step - 1);
         }
-        //grid[x][y] = 0;
+
         return res;
     }
+
+
 
     public static void main(String[] args) {
         System.out.println(findPaths(1, 3, 3, 0, 1));
