@@ -24,6 +24,10 @@ public class LeetCode576 {
             int nextY = y + d[1];
             res += DFS(grid, nextX, nextY, step - 1);
         }
+
+
+
+
         return res;
 
 
