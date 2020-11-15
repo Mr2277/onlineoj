@@ -48,6 +48,20 @@ public class LeetCode695 {
         }
         return path.size();
     }
-
+    public int dfs(int[][] grid, int x, int y) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == 0) {
+            return 0;
+        }
+        int res = 1;
+        grid[x][y] = 0;
+        int[][] dir = new int[][] {{-1 ,0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] d : dir) {
+            int nextX = x + d[0];
+            int nextY = y + d[1];
+            res += dfs(grid, nextX, nextY);
+        }
+        //grid[x][y] = 1;
+        return res;
+    }
 
 }
