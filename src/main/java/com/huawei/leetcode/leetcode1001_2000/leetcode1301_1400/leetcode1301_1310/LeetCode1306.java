@@ -23,6 +23,10 @@ public class LeetCode1306 {
 
 
 
+
+
+
+
     public static void main(String[] args) {
         int[] array = new int[] {3,0,2,1,2};
         System.out.println(canReach(array, 2));
