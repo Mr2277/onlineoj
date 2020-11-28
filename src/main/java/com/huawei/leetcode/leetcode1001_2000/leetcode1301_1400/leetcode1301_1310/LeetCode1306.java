@@ -19,10 +19,6 @@ public class LeetCode1306 {
         boolean left = dfs(arr, start - arr[start], flag);
         flag[start] = false;
         return right || left;
-    }
-
-
-
 
 
 
