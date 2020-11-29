@@ -20,7 +20,7 @@ public class LeetCode1306 {
         flag[start] = false;
         return right || left;
 
-
+    }
 
 
     public static void main(String[] args) {
