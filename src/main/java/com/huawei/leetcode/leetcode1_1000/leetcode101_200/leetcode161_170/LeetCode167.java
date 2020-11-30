@@ -15,6 +15,7 @@ public class LeetCode167 {
     }
 
     public static int[] result = new int[2];
+
     public static boolean isEnd = false;
 
     public static void dfs (int[] numbers, int target, boolean[] flag, List<Integer> list) {
