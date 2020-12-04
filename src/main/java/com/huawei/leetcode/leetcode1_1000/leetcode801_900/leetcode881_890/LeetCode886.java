@@ -4,6 +4,7 @@ package com.huawei.leetcode.leetcode1_1000.leetcode801_900.leetcode881_890;
 import java.util.*;
 
 public class LeetCode886 {
+    /*
     public static boolean possibleBipartition(int N, int[][] dislikes) {
         List<Set<Integer>> graph = new ArrayList<>();
         for (int i = 0; i <= N; i++) {
@@ -40,7 +41,22 @@ public class LeetCode886 {
         return true;
 
     }
-
+    */
+    public static boolean possibleBipartition(int N, int[][] dislikes) {
+       Map<Integer, Set<Integer>> dislikeMap = new HashMap<>();
+       for (int[] dis : dislikes) {
+           if (dislikeMap.containsKey(dis[0])) {
+               Set<Integer> set = new HashSet<>();
+               set.add(dis[1]);
+               dislikeMap.put(dis[0], set);
+           } else {
+               Set<Integer> set = dislikeMap.get(dis[0]);
+               set.add(dis[1]);
+               dislikeMap.put(dis[0], set);
+           }
+       }
+       return false;
+    }
     public static void main(String[] args) {
        int[][] dislikes = new int[][] {{1,2},{1,3},{2,4}};
        possibleBipartition(4, dislikes);
