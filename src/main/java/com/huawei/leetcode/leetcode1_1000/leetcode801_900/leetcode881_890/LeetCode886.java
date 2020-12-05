@@ -62,18 +62,27 @@ public class LeetCode886 {
            Integer key = (Integer) entry.getKey();
            Set<Integer> set = (Set<Integer>) entry.getValue();
            List<Integer> list = new ArrayList<>(set);
-           int target = 1;
+           int target = 0;
            if (colors[key -1] != 0) {
                target = colors[key - 1];
            }
            for (Integer integer : list) {
-               if (integer != 0) {
-                   target = integer == 1 ? 2 : 1;
+               if (colors[integer - 1] != 0) {
+                   int flag = colors[integer - 1] == 1 ? 2 : 1;
+                   if (target != 0 && target != flag) {
+                       result = false;
+                   }
+                   if (target == 0) {
+                       target = flag;
+                   }
                }
            }
-           dfs(dislikeMap, colors, target, key);
+           if (colors[key - 1] == 0) {
+               target = target == 0 ? 1 : target;
+               dfs(dislikeMap, colors, target, key);
+           }
        }
-       return false;
+       return result;
     }
     public static boolean result = true;
     public static void dfs (Map<Integer, Set<Integer>> dislikeMap, int[] colors, int target, int cur) {
@@ -87,7 +96,12 @@ public class LeetCode886 {
             Iterator iterator = set.iterator();
             while (iterator.hasNext()) {
                 int nextTarget = target == 1 ? 2 : 1;
-                dfs(dislikeMap, colors, nextTarget, (Integer) iterator.next());
+                int next = (int) iterator.next();
+                if (colors[next - 1] == 0) {
+                    dfs(dislikeMap, colors, nextTarget, next);
+                } else if (colors[next - 1] != nextTarget) {
+                    result = false;
+                }
             }
         } else {
             if (colors[cur - 1] == 0) {
@@ -99,7 +113,8 @@ public class LeetCode886 {
     }
 
     public static void main(String[] args) {
-       int[][] dislikes = new int[][] {{1,2},{1,3},{2,4}};
-       possibleBipartition(4, dislikes);
+        //int[][] dislikes = new int[][] {{1,2},{2,3},{3,4},{4,5},{1,5}};
+        int[][] dislikes = new int[][] {{1,2},{1,3},{2,3}};
+        possibleBipartition(3, dislikes);
     }
 }
