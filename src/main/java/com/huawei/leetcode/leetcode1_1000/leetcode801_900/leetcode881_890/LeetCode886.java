@@ -45,7 +45,7 @@ public class LeetCode886 {
     public static boolean possibleBipartition(int N, int[][] dislikes) {
        Map<Integer, Set<Integer>> dislikeMap = new HashMap<>();
        for (int[] dis : dislikes) {
-           if (dislikeMap.containsKey(dis[0])) {
+           if (!dislikeMap.containsKey(dis[0])) {
                Set<Integer> set = new HashSet<>();
                set.add(dis[1]);
                dislikeMap.put(dis[0], set);
@@ -55,8 +55,49 @@ public class LeetCode886 {
                dislikeMap.put(dis[0], set);
            }
        }
+       int[] colors = new int[N];
+       Iterator iterator = dislikeMap.entrySet().iterator();
+       while (iterator.hasNext()) {
+           Map.Entry entry = (Map.Entry) iterator.next();
+           Integer key = (Integer) entry.getKey();
+           Set<Integer> set = (Set<Integer>) entry.getValue();
+           List<Integer> list = new ArrayList<>(set);
+           int target = 1;
+           if (colors[key -1] != 0) {
+               target = colors[key - 1];
+           }
+           for (Integer integer : list) {
+               if (integer != 0) {
+                   target = integer == 1 ? 2 : 1;
+               }
+           }
+           dfs(dislikeMap, colors, target, key);
+       }
        return false;
     }
+    public static boolean result = true;
+    public static void dfs (Map<Integer, Set<Integer>> dislikeMap, int[] colors, int target, int cur) {
+        if (dislikeMap.containsKey(cur)) {
+            Set<Integer> set = dislikeMap.get(cur);
+            if (colors[cur - 1] == 0) {
+                colors[cur - 1] = target;
+            } else if (colors[cur - 1] != target) {
+                result = false;
+            }
+            Iterator iterator = set.iterator();
+            while (iterator.hasNext()) {
+                int nextTarget = target == 1 ? 2 : 1;
+                dfs(dislikeMap, colors, nextTarget, (Integer) iterator.next());
+            }
+        } else {
+            if (colors[cur - 1] == 0) {
+                colors[cur - 1] = target;
+            } else if (colors[cur - 1] != target) {
+                result = false;
+            }
+        }
+    }
+
     public static void main(String[] args) {
        int[][] dislikes = new int[][] {{1,2},{1,3},{2,4}};
        possibleBipartition(4, dislikes);
