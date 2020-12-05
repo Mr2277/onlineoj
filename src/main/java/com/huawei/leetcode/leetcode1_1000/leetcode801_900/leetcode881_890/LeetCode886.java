@@ -42,7 +42,7 @@ public class LeetCode886 {
 
     }
     */
-
+    /*
     public boolean result = true;
     public boolean possibleBipartition(int N, int[][] dislikes) {
         Map<Integer, List<Integer>> dislikesMap = new HashMap<>();
@@ -96,6 +96,39 @@ public class LeetCode886 {
                     result = false;
                 }
             }
+        }
+    }
+    */
+    public static int possibleBipartition(int N, int[][] dislikes) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int[] dis : dislikes) {
+            if (!map.containsKey(dis[0])) {
+                List<Integer> list = new ArrayList<>();
+                list.add(dis[1]);
+                map.put(dis[0], list);
+            } else {
+                List<Integer> list = map.get(dis[0]);
+                list.add(dis[1]);
+                map.put(dis[0], list);
+            }
+            if (!map.containsKey(dis[1])) {
+                List<Integer> list = new ArrayList<>();
+                list.add(dis[0]);
+                map.put(dis[1], list);
+            } else {
+                List<Integer> list = map.get(dis[1]);
+                list.add(dis[0]);
+                map.put(dis[1], list);
+            }
+        }
+        return 0;
+    }
+
+    public static void dfs(Map<Integer, List<Integer>> map, Map<Integer, Integer> group, int cur, int target) {
+        if (!group.containsKey(cur)) {
+            group.put(cur, target);
+        } else if (group.get(cur) != target) {
+
         }
     }
     public static void main(String[] args) {
