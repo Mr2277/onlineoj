@@ -141,9 +141,9 @@ public class LeetCode210 {
 
     }
     public static void main(String[] args) {
-        //int[][] pre = new int[][] {{1,0},{2,0},{3,1},{3,2}};
-        int[][] pre = new int[][] {{1,0}};
-        int[] result = new LeetCode210().findOrder(3, pre);
+        int[][] pre = new int[][] {{1,0},{2,0},{3,1},{3,2}};
+        //int[][] pre = new int[][] {{1,0}};
+        int[] result = new LeetCode210().findOrder(4, pre);
         for (Integer integer : result) {
             System.out.println(integer);
         }
