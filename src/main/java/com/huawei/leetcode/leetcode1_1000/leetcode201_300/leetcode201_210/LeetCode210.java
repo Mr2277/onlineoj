@@ -51,6 +51,7 @@ public class LeetCode210 {
         return new int[numCourses];
     }
     */
+    /*
     public int[] findOrder(int num, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         boolean[] flag = new boolean[num];
@@ -93,6 +94,57 @@ public class LeetCode210 {
         if (colors[cur] == -1) {
             isXunHuan = true;
         }
+    }
+    */
+    public int[] findOrder(int num, int[][] prerequisites) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        boolean[] flag = new boolean[num];
+        for (int[] pre : prerequisites) {
+            if (!map.containsKey(pre[1])) {
+                List<Integer> list = new ArrayList<>();
+                list.add(pre[0]);
+                flag[pre[0]] = true;
+                map.put(pre[1], list);
+            } else {
+                List<Integer> list = map.get(pre[1]);
+                list.add(pre[0]);
+                flag[pre[0]] = true;
+                map.put(pre[1], list);
+            }
+        }
+        int cur = 0;
+        for (int i = 0; i < num; i++) {
+            if (!flag[i]) {
+                cur = i;
+            }
+        }
+        boolean isXunHuan = false;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(cur);
+        int[] colors = new int[num];
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                cur = queue.poll();
+                colors[cur] = -1;
+                if (map.containsKey(cur)) {
+                    List<Integer> list = map.get(cur);
+                    for (Integer integer : list) {
+                        if (colors[integer] == 0) {
+                            queue.add(integer);
+                            colors[integer] = -1;
+                        }
+                        if (colors[integer] == -1) {
+                            isXunHuan = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!isXunHuan) {
+
+        }
+        return new int[] {};
     }
     public static void main(String[] args) {
         int[][] pre = new int[][] {{1,0},{2,0},{3,1},{3,2},{2,3}};
