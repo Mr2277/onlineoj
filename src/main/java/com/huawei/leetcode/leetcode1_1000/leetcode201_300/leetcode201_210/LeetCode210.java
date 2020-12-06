@@ -51,7 +51,7 @@ public class LeetCode210 {
         return new int[numCourses];
     }
     */
-    /*
+    public boolean isXunHuan = false;
     public int[] findOrder(int num, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         boolean[] flag = new boolean[num];
@@ -76,11 +76,35 @@ public class LeetCode210 {
         }
         int[] colors = new int[num];
         dfs(map, colors, cur);
-        return new int[] {};
+        if (isXunHuan) {
+            return new int[]{};
+        } else {
+            List<Integer> list = new ArrayList<>();
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(cur);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    cur = queue.poll();
+                    list.add(cur);
+                    colors[cur] = 0;
+                    if (map.containsKey(cur)) {
+                        List<Integer> value = map.get(cur);
+                        for (Integer integer : value) {
+                            if (colors[integer] == 1) {
+                                queue.add(integer);
+                                colors[integer] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            int[] arr1 = list.stream().mapToInt(Integer::valueOf).toArray();
+            return arr1;
+        }
     }
-    public static boolean isXunHuan = false;
-    public static List<Integer> list = new ArrayList<>();
-    public static void dfs(Map<Integer, List<Integer>> map, int[] colors, int cur) {
+
+    public void dfs(Map<Integer, List<Integer>> map, int[] colors, int cur) {
         if (colors[cur] == 0) {
             colors[cur] = -1;
             if (map.containsKey(cur)) {
@@ -95,7 +119,8 @@ public class LeetCode210 {
             isXunHuan = true;
         }
     }
-    */
+
+    /*
     public int[] findOrder(int num, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         boolean[] flag = new boolean[num];
@@ -133,8 +158,7 @@ public class LeetCode210 {
                         if (colors[integer] == 0) {
                             queue.add(integer);
                             colors[integer] = -1;
-                        }
-                        if (colors[integer] == -1) {
+                        } else if (colors[integer] == -1) {
                             isXunHuan = true;
                         }
                     }
@@ -146,8 +170,12 @@ public class LeetCode210 {
         }
         return new int[] {};
     }
+    */
     public static void main(String[] args) {
         int[][] pre = new int[][] {{1,0},{2,0},{3,1},{3,2},{2,3}};
-        new LeetCode210().findOrder(4, pre);
+        int[] result = new LeetCode210().findOrder(4, pre);
+        for (Integer integer : result) {
+            System.out.println(integer);
+        }
     }
 }
