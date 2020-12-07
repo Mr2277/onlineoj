@@ -134,6 +134,9 @@ public class LeetCode210 {
                     inDegree[num]--;
                     if(inDegree[num] == 0) queue.offer(num);
                 }
+
+
+
             }
         }
         //使用list的流来转为int[]数组，也可以通过遍历一遍完成转换。
