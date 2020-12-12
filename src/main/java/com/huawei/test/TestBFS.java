@@ -33,11 +33,18 @@ public class TestBFS {
                         Location next = new Location(nextX, nextY, cur);
                         queue.add(next);
                         if (nextX == grid.length - 1 && nextY == grid[0].length - 1) {
+                            /*
                             for (int m = 0; m < grid.length; m++) {
                                 for (int n = 0; n < grid[0].length; n++) {
                                     System.out.print(grid[m][n] + " ");
                                 }
                                 System.out.println();
+                            }
+                            */
+                            Location temp = next;
+                            while (temp != null) {
+                                System.out.println(temp.x + " " + temp.y);
+                                temp = temp.from;
                             }
                         }
                     }
