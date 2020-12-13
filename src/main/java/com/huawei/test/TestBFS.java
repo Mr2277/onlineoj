@@ -41,6 +41,9 @@ public class TestBFS {
                                 System.out.println();
                             }
                             */
+
+
+
                             Location temp = next;
                             while (temp != null) {
                                 System.out.println(temp.x + " " + temp.y);
