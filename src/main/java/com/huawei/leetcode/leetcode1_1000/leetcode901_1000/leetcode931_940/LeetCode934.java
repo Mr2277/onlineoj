@@ -21,23 +21,48 @@ public class LeetCode934 {
     }
 
     public int shortestBridge(int[][] A) {
+        int groudId = -1;
         for (int i = 0; i < A.length; i++) {
             for (int j = 0; j < A[0].length; j++) {
                 if (A[i][j] == 1) {
-
+                    Location start = new Location(i, j, 0, null);
+                    bfs(A, start, groudId);
+                    printf(A);
                 }
             }
         }
+        return 0;
     }
 
-    public List<Location> bfs(int[][] A, Location start, int groupId) {
+    public void bfs(int[][] A, Location start, int groupId) {
         Queue<Location> queue = new LinkedList<>();
         List<Location> locations = new ArrayList<>();
+        int[][] dir = new int[][] {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
         queue.add(start);
         locations.add(start);
         A[start.x][start.y] = groupId;
         while (!queue.isEmpty()) {
-
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Location cur = queue.poll();
+                for (int[] d : dir) {
+                    int nextX = cur.x + d[0];
+                    int nextY = cur.y + d[1];
+                    if (nextX >= 0 && nextX < A.length && nextY >= 0 && nextY < A[0].length && A[nextX][nextY] == 1) {
+                        A[nextX][nextY] = groupId;
+                        Location next = new Location(nextX, nextY, 0, cur);
+                        queue.add(next);
+                    }
+                }
+            }
+        }
+    }
+    public void printf(int[][] A) {
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < A[0].length; j++) {
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
         }
     }
     public static void main(String[] args) {
@@ -48,7 +73,7 @@ public class LeetCode934 {
                 {1, 0, 0, 0, 1},
                 {1, 1, 1, 1, 1}
         };
-
+        new LeetCode934().;
 
     }
 }
