@@ -19,17 +19,24 @@ public class LeetCode934 {
             this.from = from;
         }
     }
-
     public int shortestBridge(int[][] A) {
         int groudId = -1;
+        boolean isSearch = false;
+        int[][] dir = new int[][] {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
         for (int i = 0; i < A.length; i++) {
             for (int j = 0; j < A[0].length; j++) {
                 if (A[i][j] == 1) {
                     Location start = new Location(i, j, 0, null);
-                    bfs(A, start, groudId);
-                    printf(A);
+                    if (!isSearch) {
+                        bfs(A, start, groudId);
+                        isSearch = true;
+                    }
+                    else {
+                        findShortestBridge(A, i, j, dir, true);
+                    }
                 }
             }
+
         }
         return 0;
     }
@@ -57,6 +64,11 @@ public class LeetCode934 {
             }
         }
     }
+
+    public int findShortestBridge(int[][] A, int x, int y, int[][] dir, boolean start) {
+        return 0;
+    }
+
     public void printf(int[][] A) {
         for (int i = 0; i < A.length; i++) {
             for (int j = 0; j < A[0].length; j++) {
@@ -66,6 +78,7 @@ public class LeetCode934 {
         }
     }
     public static void main(String[] args) {
+        /*
         int[][] A = new int[][] {
                 {1, 1, 1, 1, 1},
                 {1, 0, 0, 0, 1},
@@ -73,7 +86,14 @@ public class LeetCode934 {
                 {1, 0, 0, 0, 1},
                 {1, 1, 1, 1, 1}
         };
-        new LeetCode934().;
+        */
+        int[][] A = new int[][] {
+                {1, 1, 0, 0},
+                {1, 0, 0, 0},
+                {0, 0, 0, 1},
+                {0, 0, 0, 1}
+        };
+        new LeetCode934().shortestBridge(A);
 
     }
 }
