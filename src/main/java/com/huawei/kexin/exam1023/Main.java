@@ -1,4 +1,4 @@
-package com.huawei.kexin;
+package com.huawei.kexin.exam1023;
 
 import java.util.Scanner;
 

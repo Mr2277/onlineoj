@@ -88,7 +88,7 @@ public class LeetCode563 {
         }
         if (root.right != null) {
             right = root.right.val;
-            List<Integer> nodes = new A
+            //List<Integer> nodes = new A
         }
         int sum = Math.abs(left - right);
         return sum + findTilt(root.left) + findTilt(root.right);
