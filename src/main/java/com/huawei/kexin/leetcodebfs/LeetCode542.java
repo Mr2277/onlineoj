@@ -10,27 +10,28 @@ public class LeetCode542 {
     static class Location {
         int x;
         int y;
-        int target;
-        Location(int x, int y, int target) {
+        Location(int x, int y) {
             this.x = x;
             this.y = y;
-            this.target = target;
         }
     }
 
     public int[][] updateMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[][] grid = new int[rows][cols];
         Queue<Location> queue = new LinkedList<>();
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 if (matrix[i][j] == 0) {
-                    Location location = new Location(i, j,0);
+                    grid[i][j] = 0;
+                    matrix[i][j] = -1;
+                    Location location = new Location(i ,j);
                     queue.add(location);
-                    list.add(i + "@" + j);
                 }
             }
         }
-        int[][] dir = new int[][] {{0, -1}, {0, -1}, {0, 1}, {1, 0}};
+        int[][] dir = new int[][] {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
         while (!queue.isEmpty()) {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
@@ -38,27 +39,18 @@ public class LeetCode542 {
                 for (int[] d : dir) {
                     int nextX = cur.x + d[0];
                     int nextY = cur.y + d[1];
-                    if (nextX >= 0 && nextX < matrix.length && nextY >= 0 && nextY < matrix[0].length) {
-                        if (!list.contains(nextX + "@" + nextY)) {
-                            if (matrix[nextX][nextY] == 0) {
-                                matrix[cur.x][cur.y] = 1;
-                            } else {
-                                matrix[nextX][nextY] = cur.target + 1;
-                            }
-                            Location next = new Location(nextX, nextY, cur.target + 1);
-                            queue.add(next);
-                            list.add(nextX + "@" + nextY);
-                        }
-
+                    if (nextX >= 0 && nextX < rows && nextY >= 0 && nextY < cols && matrix[nextX][nextY] != -1) {
+                        matrix[nextX][nextY] = -1;
+                        grid[nextX][nextY] = grid[cur.x][cur.y] + 1;
+                        Location next = new Location(nextX, nextY);
+                        queue.add(next);
                     }
-
                 }
             }
         }
-
-        return matrix;
+        return grid;
     }
-
+    
     public static void main(String[] args) {
         int[][] matrix = new int[][] {
                 {0,1,0,1,1},
@@ -67,7 +59,7 @@ public class LeetCode542 {
                 {1,0,1,1,1},
                 {1,0,0,0,1}
         };
-        new LeetCode542().updateMatrix(matrix);
+        matrix = new LeetCode542().updateMatrix(matrix);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 System.out.print(matrix[i][j] + " ");
