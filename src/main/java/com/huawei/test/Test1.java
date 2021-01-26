@@ -13,36 +13,9 @@ public class Test1 {
     }
 
     public static void main(String[] args) {
-        /*
-        char ch = 'a';
-        int num = 0;
-        num = ch;
-        System.out.println(num);
-        */
-        /*
-        String str = "192.168.192.0";
-        String[] strings = str.split("\\.");
-        System.out.println(strings.length);
-        */
-        /*
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            int n = scanner.nextInt();
-            if ((n & 1) == 1) {
-                System.out.println("qi");
-            } else {
-                System.out.println("ou");
-            }
-        }
-        */
-        /*
-        Map<String, String> map = new HashMap<>();
-        map.put("test", "test");
-        System.out.println(map.remove("test"));
-        */
-        List<Integer> list = new ArrayList<>();
-        System.out.println(list.size());
-        change(list);
-        System.out.println(list.size());
+        StringBuilder builder = new StringBuilder();
+        builder.append(-57);
+        builder.append("#");
+        System.out.println();
     }
 }
