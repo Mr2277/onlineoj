@@ -1,8 +1,6 @@
 package com.huawei.kexin.leetcodedfs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class LeetCode872 {
 
@@ -71,7 +69,7 @@ public class LeetCode872 {
         }
         return treeNodeStack.peek();
     }
-    /*
+
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
         List<Integer> path1 = new ArrayList<>();
         dfs(root1, path1);
@@ -102,8 +100,8 @@ public class LeetCode872 {
         dfs(root.right, paths);
         return paths;
     }
-    */
 
+    /*
     public boolean leafSimilar(TreeNode root1, TreeNode root2) {
         List<Integer> path1 = new ArrayList<>();
         DLR(root1, path1);
@@ -133,6 +131,9 @@ public class LeetCode872 {
         }
         return path;
     }
+    */
+
+
     public static void main(String[] args) {
         String str1 = "3(5(6,2(7,4)),1(9,8))";
         String str2 = "3(5(6,7),1(4,2(9,8)))";
