@@ -47,9 +47,7 @@ public class LeetCode64 {
     public static void main(String[] args) {
 
         int[][] grid = new int[][] {
-                {1, 3, 1},
-                {1, 5, 1},
-                {4, 2, 1}
+                {4}
         };
 
         /*
@@ -59,6 +57,5 @@ public class LeetCode64 {
         };
         */
         System.out.println(new LeetCode64().minPathSum(grid));
-        System.out.println(count);
     }
 }
