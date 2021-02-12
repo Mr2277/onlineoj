@@ -7,8 +7,6 @@ import java.util.Map;
 
 public class LeetCode207 {
 
-    public boolean result = true;
-
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         for (int[] pre : prerequisites) {
@@ -25,27 +23,31 @@ public class LeetCode207 {
         int[] nums = new int[numCourses];
         for (int i = 0; i < numCourses; i++) {
             if (nums[i] != -1) {
-                dfs(nums, map, i);
+                if (!dfs(nums, map, i)) {
+                    return false;
+                }
             }
         }
-        return result;
+        return true;
     }
 
-    public void dfs(int[] nums, Map<Integer, List<Integer>> map, int index) {
+    public boolean dfs(int[] nums, Map<Integer, List<Integer>> map, int index) {
         if (nums[index] == 1) {
-            result = false;
-            return;
+            return false;
         }
         nums[index] = 1;
         if (map.containsKey(index)) {
             List<Integer> list = map.get(index);
             for (Integer integer : list) {
                 if (nums[integer] != -1) {
-                    dfs(nums, map, integer);
+                    if (!dfs(nums, map, integer)) {
+                        return false;
+                    }
                 }
             }
         }
         nums[index] = -1;
+        return true;
     }
 
     public static void main(String[] args) {
