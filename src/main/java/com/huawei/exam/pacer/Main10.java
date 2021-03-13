@@ -1,4 +1,4 @@
-package com.huawei.exam;
+package com.huawei.exam.pacer;
 
 import java.util.Scanner;
 
