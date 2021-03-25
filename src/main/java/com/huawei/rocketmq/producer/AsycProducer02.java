@@ -28,10 +28,11 @@ public class AsycProducer02 {
         for (int i = 0; i < messageCount; i++) {
             final int index = i;
             // 创建消息，并指定Topic，Tag和消息体
-            Message msg = new Message("TopicTest1",
+            String body = "Hello World" + String.valueOf(i);
+            Message msg = new Message("Topic0325",
                     "TagA",
                     //"OrderID188",
-                    "Hello world".getBytes(RemotingHelper.DEFAULT_CHARSET));
+                    body.getBytes(RemotingHelper.DEFAULT_CHARSET));
             // SendCallback接收异步返回结果的回调
             producer.send(msg, new SendCallback() {
                 @Override
