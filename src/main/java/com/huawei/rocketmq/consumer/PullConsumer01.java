@@ -14,10 +14,10 @@ public class PullConsumer01 {
     private static final Map<MessageQueue, Long> OFFSE_TABLE = new HashMap<MessageQueue, Long>();
 
     public static void main(String[] args) throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("consumer032501");
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("consumer0401");
         consumer.setNamesrvAddr("127.0.0.1:9876");
         consumer.start();
-        Set<MessageQueue> mqs = consumer.fetchSubscribeMessageQueues("Topic0325");
+        Set<MessageQueue> mqs = consumer.fetchSubscribeMessageQueues("Topic0401");
         for (MessageQueue mq : mqs) {
             System.out.printf("Consume from the queue: %s%n", mq);
             SINGLE_MQ:
