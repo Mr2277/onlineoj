@@ -18,9 +18,9 @@ public class Producer01 {
         producer.setNamesrvAddr("localhost:9876");
         // 启动Producer实例
         producer.start();
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        for (int i = 0; i < 100; i++) {
             // 创建消息，并指定Topic，Tag和消息体
-            Message msg = new Message("Topic0325", "tag1", ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+            Message msg = new Message("Topic0325", "*", ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // 发送消息到一个Broker
             SendResult sendResult = producer.send(msg);
             // 通过sendResult返回消息是否成功送达

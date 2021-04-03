@@ -12,51 +12,23 @@ import java.util.List;
 
 public class Consumer01 {
     public static void main(String[] args) throws InterruptedException, MQClientException {
-
-        /*
-         * Instantiate with specified consumer group name.
-         */
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("consumer0325");
-
-        /*
-         * Specify name server addresses.
-         * <p/>
-         *
-         * Alternatively, you may specify name server addresses via exporting environmental variable: NAMESRV_ADDR
-         * <pre>
-         * {@code
-         * consumer.setNamesrvAddr("name-server1-ip:9876;name-server2-ip:9876");
-         * }
-         * </pre>
-         */
-
-        /*
-         * Specify where to start in case the specified consumer group is a brand new one.
-         */
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("CID_JODIE_1");
+        consumer.subscribe("Topic0325", "*");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-
-        /*
-         * Subscribe one more more topics to consume.
-         */
-        consumer.subscribe("Topic0401", "*");
-
-        /*
-         *  Register callback to execute on arrival of messages fetched from brokers.
-         */
+        consumer.setInstanceName("consumer1");
+        consumer.setConsumeThreadMax(100);
+        consumer.setConsumeThreadMin(100);
+        //consumer.setPullBatchSize(32);
+        consumer.setNamesrvAddr("127.0.0.1:9876");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
+                System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs, System.currentTimeMillis());
+                System.out.println(msgs.size());
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
-
-        /*
-         *  Launch the consumer instance.
-         */
         consumer.start();
-
-        System.out.printf("Consumer Started.%n");
     }
 }

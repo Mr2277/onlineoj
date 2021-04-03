@@ -11,6 +11,7 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,17 +24,22 @@ public class SeqProducer {
         // 启动生产者实例
         producer.start();
         // 发送消息
-        for (int i = 0; i < 10; i++) {
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            if (i % 10 == 0 && i != 0) {
+                Thread.sleep(30000);
+            }
             // 创建消息，并指定Topic，Tag和消息体
-            Message message = new Message("Topic0401", ("Hello Rocket" + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+            Message message = new Message("Topic0325","*", ("Hello Rocket" + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // 发送消息
             SendResult sendResult = producer.send(message, new MessageQueueSelector() {
 
                 @Override
                 public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
+                    System.out.println(o);
                     return list.get(0);
                 }
-            }, i);
+            }, "str" + i);
             // 通过sendResult返回消息是否成功送达
             System.out.printf("%s%n", sendResult);
         }
