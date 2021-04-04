@@ -35,7 +35,7 @@ public class SeqProducer {
                 @Override
                 public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
 
-                    int index = 1;
+                    int index = 2;
                     /*
                     int cur = (int) o;
                     if (cur >= 0 && cur <=24) {

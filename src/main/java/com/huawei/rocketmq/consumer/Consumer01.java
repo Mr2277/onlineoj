@@ -16,8 +16,8 @@ public class Consumer01 {
         consumer.subscribe("Topic0325", "*");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.setInstanceName("consumer1");
-        consumer.setConsumeThreadMax(1);
-        consumer.setConsumeThreadMin(1);
+        consumer.setConsumeThreadMax(50);
+        consumer.setConsumeThreadMin(50);
         consumer.setNamesrvAddr("127.0.0.1:9876");
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
