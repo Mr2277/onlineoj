@@ -1,6 +1,5 @@
-package com.huawei.rocketmq.sequence.consumer;
+package com.huawei.rocketmq.utils;
 
-import com.huawei.rocketmq.mysql.MysqlUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
@@ -8,11 +7,11 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class SeqConsumer {
-    public static void main(String[] args) throws MQClientException {
+public class RocketUtils {
+
+    public static DefaultMQPushConsumer createConsumer() throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("conser0401");
         consumer.setNamesrvAddr("127.0.0.1:9876");
         consumer.subscribe("Topic0325", "*");
@@ -23,19 +22,16 @@ public class SeqConsumer {
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {
                 for (MessageExt messageExt : list) {
-                    String sql = "insert into rocket_message_info(QUEUE_ID, MESSAGE_BODY,CREATE_TIME) VALUES(?, ?, ?);";
-                    try {
-                        MysqlUtils.insert(sql, messageExt.getQueueId(), new String(messageExt.getBody()), String.valueOf(System.currentTimeMillis()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
                     System.out.println(new String(messageExt.getBody()) + "@" + System.currentTimeMillis());
                 }
                 return ConsumeOrderlyStatus.SUCCESS;
             }
         });
         consumer.start();
+        return consumer;
+    }
+
+    public static void shutdownConsumer(DefaultMQPushConsumer consumer) {
+        consumer.shutdown();
     }
 }
