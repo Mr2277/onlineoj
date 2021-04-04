@@ -23,14 +23,7 @@ public class SeqConsumer {
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {
                 for (MessageExt messageExt : list) {
-                    String sql = "insert into rocket_message_info(QUEUE_ID, MESSAGE_BODY,CREATE_TIME) VALUES(?, ?, ?);";
-                    try {
-                        MysqlUtils.insert(sql, messageExt.getQueueId(), new String(messageExt.getBody()), String.valueOf(System.currentTimeMillis()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+
                     System.out.println(new String(messageExt.getBody()) + "@" + System.currentTimeMillis());
                 }
                 return ConsumeOrderlyStatus.SUCCESS;

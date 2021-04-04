@@ -1,6 +1,8 @@
 package com.huawei.rocketmq.mysql;
 
 import java.sql.*;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class MysqlUtils {
 
@@ -41,13 +43,16 @@ public class MysqlUtils {
         connection.close();
     }
 
-    public static void insert(String sql, int queueId, String messageBody, String unixTime) throws SQLException, ClassNotFoundException {
+    public static void insert(String sql, int queueId, String messageBody, String unixTime, CyclicBarrier cyclicBarrier) throws SQLException, ClassNotFoundException, BrokenBarrierException, InterruptedException {
         Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, queueId);
         ps.setString(2, messageBody);
         ps.setString(3, unixTime);
         ps.executeUpdate();
+        ps.close();
+        conn.close();
+        cyclicBarrier.await();
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
